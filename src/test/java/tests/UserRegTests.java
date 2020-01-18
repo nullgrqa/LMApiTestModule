@@ -66,7 +66,34 @@ public class UserRegTests extends TestBase {
         assertEquals(regResponseFromApi, regResponseExpected);
     }
 
+    @Test // Registration check. FirstName has 101 symbols
+    public void checkUserReg_3() throws IOException, URISyntaxException {
+        System.out.println("// Registration check. FirstName has 101 symbols");
 
+        String name = "slavaslavaslavaslavaslavaslavaslavaslavaslavaslavaslavaslavaslavaslavaslavaslavaslavaslavaslavaslavaw";
+
+        UserReg user3 = new UserReg()
+                .withFirstName(name)
+                .withLastName("Test")
+                .withRefStoreId(62)
+                .withPhone("+79036788778")
+                .withEmail(email)
+                .withPassword("qwertyU1");
+
+        RegResponse regResponseExpected = new RegResponse()
+                .withStatus(false)
+                .withMessage("Move failed (registration)")
+                .withStringCode("MOVE_ERROR");
+
+        int statusCodeFromApi = am.getApiRegHelper().getRegStatusCodeFromApi(user3);
+        System.out.println("statusCodeFromApi " + statusCodeFromApi);
+
+        RegResponse regResponseFromApi = am.getApiRegHelper().getRegResponseFromApi(user3);
+        System.out.println("regResponseExpected " + regResponseExpected);
+
+        assertEquals(statusCodeFromApi, (409));
+        assertEquals(regResponseFromApi, regResponseExpected);
+    }
 }
 
 
