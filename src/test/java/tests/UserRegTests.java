@@ -36,7 +36,7 @@ public class UserRegTests extends TestBase {
         int statusCodeFromApi = am.getApiRegHelper().getRegStatusCodeFromApi(user2);
         System.out.println("statusCodeFromApi " + statusCodeFromApi);
 
-        assertEquals(statusCodeFromApi, (200));
+        assertEquals(statusCodeFromApi, (400));
     }
 
     @Test //Registration check. User already exist in DB.
