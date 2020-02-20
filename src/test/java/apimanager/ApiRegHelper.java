@@ -5,6 +5,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import io.restassured.RestAssured;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import model.RegResponse;
 import model.UserReg;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -58,6 +62,19 @@ public class ApiRegHelper {
         return statusCode;
 
     }
+
+//    public int getRegStatusCodeFromApiRestAssured(UserReg user1) {
+//        //Specify base URI
+//        RestAssured.baseURI="https://api.leroymerlin.ru/mobile/user/register";
+//        //Request object
+//        RequestSpecification httpRequest = RestAssured.given();
+//        //Response object
+//        Response response = httpRequest.request(Method.POST);
+//
+//
+//        return 0;
+//    }
+
 
     public RegResponse getRegResponseFromApi(UserReg user1) throws IOException, URISyntaxException {
         RegResponse regResponse;

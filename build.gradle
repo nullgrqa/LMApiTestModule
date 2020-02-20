@@ -19,6 +19,10 @@ dependencies{
     implementation 'com.google.code.gson:gson:2.8.5'
     agent "org.aspectj:aspectjweaver:1.8.0"
     testCompile "ru.yandex.qatools.allure:allure-testng-adaptor:1.4.0.RC4"
+    testCompile group: 'io.rest-assured', name: 'rest-assured', version: '4.2.0'
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    compile group: 'org.apache.poi', name: 'poi', version: '4.1.1'
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.1'
 }
 
 task UserReg(type: Test) {
