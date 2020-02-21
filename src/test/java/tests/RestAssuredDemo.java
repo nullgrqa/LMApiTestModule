@@ -1,6 +1,7 @@
 package tests;
 
 import io.restassured.RestAssured;
+import io.restassured.authentication.PreemptiveBasicAuthScheme;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.http.Method;
@@ -8,9 +9,11 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.simple.JSONObject;
-import org.junit.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import utils.XLUtility;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.testng.Assert.assertEquals;
@@ -111,6 +114,68 @@ public class RestAssuredDemo extends TestBase {
 
       }
 
+      @Test
+    public void AutherizationTest() {
+        RestAssured.baseURI="http://restapi.demoqa.com/authentication/CheckForAuthentication";
+
+        //Basic auth
+          PreemptiveBasicAuthScheme authScheme = new PreemptiveBasicAuthScheme();
+          authScheme.setUserName("ToolsQA");
+          authScheme.setPassword("TestPassword");
+
+          RestAssured.authentication = authScheme;
+
+          RequestSpecification httpRequest = RestAssured.given();
+
+          Response response = httpRequest.request(Method.GET, "/");
+
+          String responseBody = response.getBody().asString();
+
+          System.out.println(responseBody);
+
+      }
+
+      @DataProvider(name="empdataprovider")
+      Object[] getEmpData() {
+        String empData[][] = {{"sss","1000","18"},{"dddd","3000","25"}};
+        return empData;
+      }
+
+    @DataProvider(name = "customerData")
+    public Object[][] retrieveCustomerDataFromExcel() throws IOException {
+
+        String xlFilePath = System.getProperty("user.dir") + "/src/test/resources/empdata.xls";
+        System.out.println("xlFilePath = " + xlFilePath);
+        int rowCount = XLUtility.getRowCount(xlFilePath, "Sheet1");
+        System.out.println(rowCount);
+        int columnCount = XLUtility.getCellCount(xlFilePath, "Sheet1", 1);
+        System.out.println(columnCount);
+
+        String customerData[][] = new String [rowCount][columnCount];
+        for (int currentRow = 1; currentRow <= rowCount; currentRow++){
+            for(int currentColumn = 0; currentColumn < columnCount; currentColumn++){
+                customerData[currentRow-1][currentColumn] = XLUtility.getCellData(xlFilePath, "Sheet1", currentRow, currentColumn);
+            }
+        }
+        return (customerData);
+    }
+
+      @Test (dataProvider = "customerData")
+    public void postNewEmployees(String ename, String esal, String eage) {
+        RestAssured.baseURI = "http://dummy.restapiexample.com/api/v1";
+          RequestSpecification httpRequest = RestAssured.given();
+          JSONObject requestParams = new JSONObject();
+          requestParams.put("name", ename);
+          requestParams.put("salary", esal);
+          requestParams.put("age", eage);
+
+          httpRequest.header("Content-Type","application/json");
+          httpRequest.body(requestParams.toJSONString());
+          Response response = httpRequest.request(Method.POST, "/create");
+
+          String responseBody = response.getBody().asString();
+
+      }
 
     }
 
