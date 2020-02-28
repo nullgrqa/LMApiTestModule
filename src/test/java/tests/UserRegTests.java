@@ -94,6 +94,8 @@ public class UserRegTests extends TestBase {
         assertEquals(statusCodeFromApi, (409));
         assertEquals(regResponseFromApi, regResponseExpected);
     }
+
+
 }
 
 

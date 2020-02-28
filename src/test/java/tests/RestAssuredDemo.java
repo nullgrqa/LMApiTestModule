@@ -1,5 +1,6 @@
 package tests;
 
+import com.google.gson.JsonObject;
 import io.restassured.RestAssured;
 import io.restassured.authentication.PreemptiveBasicAuthScheme;
 import io.restassured.http.Header;
@@ -8,6 +9,8 @@ import io.restassured.http.Method;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import model.User;
+import model.UserLogin;
 import org.json.simple.JSONObject;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -16,6 +19,7 @@ import utils.XLUtility;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 
@@ -26,7 +30,7 @@ public class RestAssuredDemo extends TestBase {
         //Specify base URI
         RestAssured.baseURI="https://api.leroymerlin.ru/mobile";
         //Request object
-        RequestSpecification httpRequest = RestAssured.given();
+        RequestSpecification httpRequest = given();
 
         httpRequest.header("Content-Type", "application/json");
         httpRequest.header("apikey", "NLdu-FEUbU-CCrd-otTWYJGhDfZZKYHAxVd-QksZEMMtCUkUKk");
@@ -48,7 +52,7 @@ public class RestAssuredDemo extends TestBase {
         //Specify base URI
         RestAssured.baseURI = "https://api.leroymerlin.ru/mobile/user";
         //Request object
-        RequestSpecification httpRequest = RestAssured.given();
+        RequestSpecification httpRequest = given();
         httpRequest.header("Content-Type", "application/json");
         httpRequest.header("apikey", "NLdu-FEUbU-CCrd-otTWYJGhDfZZKYHAxVd-QksZEMMtCUkUKk");
         //Request payload sending with POST request
@@ -100,7 +104,7 @@ public class RestAssuredDemo extends TestBase {
      public void GetWeatherDetails() {
         RestAssured.baseURI="http://restapi.demoqa.com/utilities/weather/city";
 
-        RequestSpecification httpRequest = RestAssured.given();
+        RequestSpecification httpRequest = given();
 
         Response response = httpRequest.request(Method.GET, "/Delhi");
 
@@ -125,7 +129,7 @@ public class RestAssuredDemo extends TestBase {
 
           RestAssured.authentication = authScheme;
 
-          RequestSpecification httpRequest = RestAssured.given();
+          RequestSpecification httpRequest = given();
 
           Response response = httpRequest.request(Method.GET, "/");
 
@@ -163,7 +167,7 @@ public class RestAssuredDemo extends TestBase {
       @Test (dataProvider = "customerData")
     public void postNewEmployees(String ename, String esal, String eage) {
         RestAssured.baseURI = "http://dummy.restapiexample.com/api/v1";
-          RequestSpecification httpRequest = RestAssured.given();
+          RequestSpecification httpRequest = given();
           JSONObject requestParams = new JSONObject();
           requestParams.put("name", ename);
           requestParams.put("salary", esal);
@@ -176,6 +180,61 @@ public class RestAssuredDemo extends TestBase {
           String responseBody = response.getBody().asString();
 
       }
+
+    @Test
+    public void checkLogin() {
+        String authorization = "dGVzdGVyMTkwMEB0ZXN0ZXIucnU6cXdlcnRZMTI=";
+
+        User userExpected = new User()
+                .withCustomerNumber("11160670")
+                .withEmail("tester1900@tester.ru")
+                .withPhone("+79056788708")
+                .withFirstName("I'lmatd")
+                .withLastName("Baisna");
+
+        System.out.println("userExpected : " + userExpected);
+
+
+        RestAssured.baseURI = "https://api.leroymerlin.ru/mobile";
+        RequestSpecification httpRequest = given();
+
+        httpRequest.header("Content-Type","application/json");
+        httpRequest.header("apikey","NLdu-FEUbU-CCrd-otTWYJGhDfZZKYHAxVd-QksZEMMtCUkUKk");
+
+        JSONObject requestParams = new JSONObject();
+        requestParams.put("Authorization", authorization);
+
+        httpRequest.body(requestParams.toJSONString());
+
+        Response response = httpRequest.request(Method.POST,"/user/auth");
+
+        UserLogin userLoginFromApi = response.then().extract().body().as(UserLogin.class);
+        System.out.println("userLoginFromApi :" + userLoginFromApi);
+
+        User userFromApi = new User()
+                .withCustomerNumber(userLoginFromApi.getUser().getCustomerNumber())
+                .withEmail(userLoginFromApi.getUser().getEmail())
+                .withPhone(userLoginFromApi.getUser().getPhone())
+                .withFirstName(userLoginFromApi.getUser().getFirstName())
+                .withLastName(userLoginFromApi.getUser().getLastName());
+
+        System.out.println("userFromApi : " + userFromApi);
+
+        assertEquals(userExpected, userFromApi);
+
+
+
+//        String responseBody = response.getBody().asString();
+//
+//        System.out.println(responseBody);
+//
+//        JsonPath jsonPath = response.jsonPath();
+//
+//        String firstName = jsonPath.get("user.firstName");
+//        System.out.println(firstName);
+
+
+    }
 
     }
 
