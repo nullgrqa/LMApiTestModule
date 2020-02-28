@@ -190,9 +190,9 @@ public class RestAssuredDemo extends TestBase {
                 .withEmail("tester1900@tester.ru")
                 .withPhone("+79056788708")
                 .withFirstName("I'lmatd")
-                .withLastName("Baisna1");
+                .withLastName("Baisna");
 
-        System.out.println("userExpected : " + userExpected);
+        //System.out.println("userExpected : " + userExpected);
 
 
         RestAssured.baseURI = "https://api.leroymerlin.ru/mobile";
@@ -209,7 +209,7 @@ public class RestAssuredDemo extends TestBase {
         Response response = httpRequest.request(Method.POST,"/user/auth");
 
         UserLogin userLoginFromApi = response.then().extract().body().as(UserLogin.class);
-        System.out.println("userLoginFromApi :" + userLoginFromApi);
+        //System.out.println("userLoginFromApi :" + userLoginFromApi);
 
         User userFromApi = new User()
                 .withCustomerNumber(userLoginFromApi.getUser().getCustomerNumber())
@@ -218,7 +218,7 @@ public class RestAssuredDemo extends TestBase {
                 .withFirstName(userLoginFromApi.getUser().getFirstName())
                 .withLastName(userLoginFromApi.getUser().getLastName());
 
-        System.out.println("userFromApi : " + userFromApi);
+        //System.out.println("userFromApi : " + userFromApi);
 
         String responseBody = response.getBody().asString();
         JsonPath jsonPath = response.jsonPath();
@@ -226,20 +226,19 @@ public class RestAssuredDemo extends TestBase {
         String refreshToken = jsonPath.get("refresh-token");
         String expiresIn = jsonPath.get("expires-in");
 
-        System.out.println("accessToken : " + accessToken);
-        System.out.println("refreshToken : " + refreshToken);
-        System.out.println("expiresIn : " + expiresIn);
+//        System.out.println("accessToken : " + accessToken);
+//        System.out.println("refreshToken : " + refreshToken);
+//        System.out.println("expiresIn : " + expiresIn);
 
-        String accessToken1=null;
-        String refreshToken1=null;
-        String expiresIn1=null;
+//        String accessToken1=null;
+//        String refreshToken1=null;
+//        String expiresIn1=null;
 
         SoftAssert s = new SoftAssert();
 
-        s.assertNotNull(accessToken1, "Error! accessToken is null");
+        s.assertNotNull(accessToken, "Error! accessToken is null");
         s.assertNotNull(refreshToken, "Error! refreshToken is null");
-        s.assertNotNull(expiresIn1, "Error! expiresIn is null");
-
+        s.assertNotNull(expiresIn, "Error! expiresIn is null");
         s.assertEquals(userExpected, userFromApi);
         s.assertAll();
 
