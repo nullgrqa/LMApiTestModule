@@ -14,14 +14,14 @@ import model.UserLogin;
 import org.json.simple.JSONObject;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import utils.XLUtility;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import static io.restassured.RestAssured.given;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.*;
 
 public class RestAssuredDemo extends TestBase {
 
@@ -190,7 +190,7 @@ public class RestAssuredDemo extends TestBase {
                 .withEmail("tester1900@tester.ru")
                 .withPhone("+79056788708")
                 .withFirstName("I'lmatd")
-                .withLastName("Baisna");
+                .withLastName("Baisna1");
 
         System.out.println("userExpected : " + userExpected);
 
@@ -220,19 +220,28 @@ public class RestAssuredDemo extends TestBase {
 
         System.out.println("userFromApi : " + userFromApi);
 
-        assertEquals(userExpected, userFromApi);
+        String responseBody = response.getBody().asString();
+        JsonPath jsonPath = response.jsonPath();
+        String accessToken = jsonPath.get("access-token");
+        String refreshToken = jsonPath.get("refresh-token");
+        String expiresIn = jsonPath.get("expires-in");
 
+        System.out.println("accessToken : " + accessToken);
+        System.out.println("refreshToken : " + refreshToken);
+        System.out.println("expiresIn : " + expiresIn);
 
+        String accessToken1=null;
+        String refreshToken1=null;
+        String expiresIn1=null;
 
-//        String responseBody = response.getBody().asString();
-//
-//        System.out.println(responseBody);
-//
-//        JsonPath jsonPath = response.jsonPath();
-//
-//        String firstName = jsonPath.get("user.firstName");
-//        System.out.println(firstName);
+        SoftAssert s = new SoftAssert();
 
+        s.assertNotNull(accessToken1, "Error! accessToken is null");
+        s.assertNotNull(refreshToken, "Error! refreshToken is null");
+        s.assertNotNull(expiresIn1, "Error! expiresIn is null");
+
+        s.assertEquals(userExpected, userFromApi);
+        s.assertAll();
 
     }
 
