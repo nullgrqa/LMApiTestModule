@@ -8,23 +8,40 @@ import io.restassured.specification.RequestSpecification;
 import model.User;
 import model.UserLogin;
 import org.json.simple.JSONObject;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import java.util.Base64;
 
 import static io.restassured.RestAssured.given;
 
 public class UserLoginTests extends TestBase {
 
-    @Test
-    public void checkLogin() {
-        String authorization = "dGVzdGVyMTkwMEB0ZXN0ZXIucnU6cXdlcnRZMTI=";
+    private String AuthData;
+    private String authorization;
+
+    @DataProvider (name = "one")
+    Object[] getUserData() {
+        String userData[][] = {{"I'lmatd","Baisna","tester1900@tester.ru", "qwertY12", "+79056788708", "11160670"},
+                               {"Sl","Fio","sl123321123@gmail.com","qwertyU2", "+71111111111", "13480011"}};
+        return userData;
+    }
+
+    @Test(dataProvider = "one")
+    public void checkLogin(String firstName, String lastName, String emeil,
+                           String password, String phone, String customerNumber) {
+
+        AuthData = emeil + ":"+ password;
+        authorization = Base64.getEncoder().encodeToString(AuthData.getBytes());
+        //String authorization = "dGVzdGVyMTkwMEB0ZXN0ZXIucnU6cXdlcnRZMTI=";
 
         User userExpected = new User()
-                .withCustomerNumber("11160670")
-                .withEmail("tester1900@tester.ru")
-                .withPhone("+79056788708")
-                .withFirstName("I'lmatd")
-                .withLastName("Baisna");
+                .withCustomerNumber(customerNumber)
+                .withEmail(emeil)
+                .withPhone(phone)
+                .withFirstName(firstName)
+                .withLastName(lastName);
 
         //System.out.println("userExpected : " + userExpected);
 
