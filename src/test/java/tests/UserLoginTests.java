@@ -28,14 +28,21 @@ public class UserLoginTests extends TestBase {
 
         //System.out.println("userExpected : " + userExpected);
 
-        User userFromApi = am.getApiLoginHelper().getUserFromApi(authorization);
+        UserLogin userLoginFromApi = am.getApiLoginHelper().getUserLoginFromApi(authorization);
+
+        User userFromApi = new User()
+                .withCustomerNumber(userLoginFromApi.getUser().getCustomerNumber())
+                .withEmail(userLoginFromApi.getUser().getEmail())
+                .withPhone(userLoginFromApi.getUser().getPhone())
+                .withFirstName(userLoginFromApi.getUser().getFirstName())
+                .withLastName(userLoginFromApi.getUser().getLastName());
 
         SoftAssert s = new SoftAssert();
 
-//        s.assertNotNull(accessToken, "Error! accessToken is null");
-//        s.assertNotNull(refreshToken, "Error! refreshToken is null");
-//        s.assertNotNull(expiresIn, "Error! expiresIn is null");
-        s.assertEquals(userExpected, userFromApi);
+        s.assertNotNull(userLoginFromApi.getAccessToken(), "Error! accessToken is null");
+        s.assertNotNull(userLoginFromApi.getRefreshToken(), "Error! refreshToken is null");
+        s.assertNotNull(userLoginFromApi.getExpiresIn(), "Error! expiresIn is null");
+        s.assertEquals(userFromApi, userExpected);
         s.assertAll();
 
     }
