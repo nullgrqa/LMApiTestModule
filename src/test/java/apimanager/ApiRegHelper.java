@@ -5,11 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import io.restassured.RestAssured;
-import io.restassured.http.Method;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-import model.RegResponse;
+import model.ErrorResponse;
 import model.UserReg;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.http.HttpEntity;
@@ -22,7 +18,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -76,8 +71,8 @@ public class ApiRegHelper {
 //    }
 
 
-    public RegResponse getRegResponseFromApi(UserReg user1) throws IOException, URISyntaxException {
-        RegResponse regResponse;
+    public ErrorResponse getRegResponseFromApi(UserReg user1) throws IOException, URISyntaxException {
+        ErrorResponse errorResponse;
         String message = null;
         String stringCode = null;
 
@@ -113,18 +108,18 @@ public class ApiRegHelper {
 
 
 
-        RegResponse regResponse1 =
-                new Gson().fromJson(responseBody, new TypeToken<RegResponse>(){}.getType());
+        ErrorResponse errorResponse1 =
+                new Gson().fromJson(responseBody, new TypeToken<ErrorResponse>(){}.getType());
 
-        System.out.println("regResponse1.getStatus(): " + regResponse1.getStatus());
+        System.out.println("regResponse1.getStatus(): " + errorResponse1.getStatus());
 
         JsonParser jsonParser = new JsonParser();
         JsonArray parsed =  jsonParser.parse(responseBody).getAsJsonObject().getAsJsonArray("errors");
 
-        List<RegResponse> regResponse2 =
-                new Gson().fromJson(parsed, new TypeToken<List<RegResponse>>(){}.getType());
+        List<ErrorResponse> errorResponse2 =
+                new Gson().fromJson(parsed, new TypeToken<List<ErrorResponse>>(){}.getType());
 
-        for (RegResponse r: regResponse2) {
+        for (ErrorResponse r: errorResponse2) {
             message = r.getMessage();
             stringCode = r.getStringCode();
 
@@ -132,13 +127,13 @@ public class ApiRegHelper {
             System.out.println("r.getStringCode() " + r.getStringCode());
         }
 
-        regResponse = new RegResponse()
-                .withStatus(regResponse1.getStatus())
+        errorResponse = new ErrorResponse()
+                .withStatus(errorResponse1.getStatus())
                 .withMessage(message)
                 .withStringCode(stringCode);
 
-        System.out.println("regResponse " + regResponse);
+        System.out.println("regResponse " + errorResponse);
 
-        return regResponse;
+        return errorResponse;
     }
 }

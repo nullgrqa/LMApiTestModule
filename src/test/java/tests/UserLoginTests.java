@@ -1,7 +1,6 @@
 package tests;
 
-import io.restassured.response.Response;
-import model.RegResponse;
+import model.ErrorResponse;
 import model.User;
 import model.UserLogin;
 import org.testng.annotations.DataProvider;
@@ -9,7 +8,6 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import java.util.Base64;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
@@ -75,29 +73,28 @@ public class UserLoginTests extends TestBase {
     @Test(dataProvider = "EmptyAuthParam")
     public void CheckUnsuccessfulLogin(String authorization) {
 
-     //   int statusCodeForAuth = am.getApiLoginHelper().getStatusCodeForAuth(authorization);
+        int statusCodeForAuth = am.getApiLoginHelper().getStatusCodeForAuth(authorization);
 
-        RegResponse responseExpected = new RegResponse()
+        ErrorResponse responseExpected = new ErrorResponse()
                 .withStatus(false)
                 .withMessage("Authorization parameter is not defined")
                 .withStringCode("REQUEST_ERROR");
 
-        Response response = am.getApiLoginHelper().getBaseResponseForAuth(authorization);
+//        Response response = am.getApiLoginHelper().getBaseResponseForAuth(authorization);
+//
+//        response.then().log().all().assertThat().statusCode(400)
+//        .body("status", equalTo(responseExpected.getStatus()))
+//        .body("errors[0].message", equalTo(responseExpected.getMessage()))
+//        .body("errors[0].stringCode", equalTo(responseExpected.getStringCode()));
 
-        response.then().log().all().assertThat().statusCode(400)
-        .body("status", equalTo(responseExpected.getStatus()))
-        .body("errors[0].message", equalTo(responseExpected.getMessage()))
-        .body("errors[0].stringCode", equalTo(responseExpected.getStringCode()));
-
-       // RegResponse responseFromApi = am.getApiLoginHelper().getErrorUserLogin(authorization);
-        //System.out.println("responseFromApi : " + responseFromApi);
+        ErrorResponse responseFromApi = am.getApiLoginHelper().getErrorResponse(authorization);
 
         //System.out.println("statusCodeForAuth : " + statusCodeForAuth);
 
-//        SoftAssert s = new SoftAssert();
-//        assertEquals(statusCodeForAuth, 400);
-//        assertEquals(responseExpected, responseFromApi);
-//        s.assertAll();
+        SoftAssert s = new SoftAssert();
+        assertEquals(statusCodeForAuth, 400);
+        assertEquals(responseExpected, responseFromApi);
+        s.assertAll();
 
     }
 }

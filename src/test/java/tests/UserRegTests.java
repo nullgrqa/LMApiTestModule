@@ -1,6 +1,6 @@
 package tests;
 
-import model.RegResponse;
+import model.ErrorResponse;
 import model.UserReg;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -51,7 +51,7 @@ public class UserRegTests extends TestBase {
                 .withEmail("slava17puh56@gmail.com")
                 .withPassword("qwertyU1");
 
-        RegResponse regResponseExpected = new RegResponse()
+        ErrorResponse errorResponseExpected = new ErrorResponse()
                 .withStatus(false)
                 .withMessage("Sorry, this login already exists")
                 .withStringCode("LOGIN_ERROR");
@@ -59,11 +59,11 @@ public class UserRegTests extends TestBase {
         int statusCodeFromApi = am.getApiRegHelper().getRegStatusCodeFromApi(user1);
         System.out.println("statusCodeFromApi " + statusCodeFromApi);
 
-        RegResponse regResponseFromApi = am.getApiRegHelper().getRegResponseFromApi(user1);
-        System.out.println("regResponseExpected " + regResponseExpected);
+        ErrorResponse errorResponseFromApi = am.getApiRegHelper().getRegResponseFromApi(user1);
+        System.out.println("regResponseExpected " + errorResponseExpected);
 
         assertEquals(statusCodeFromApi, (400));
-        assertEquals(regResponseFromApi, regResponseExpected);
+        assertEquals(errorResponseFromApi, errorResponseExpected);
     }
 
     @Test // Registration check. FirstName has 101 symbols
@@ -80,7 +80,7 @@ public class UserRegTests extends TestBase {
                 .withEmail(email)
                 .withPassword("qwertyU1");
 
-        RegResponse regResponseExpected = new RegResponse()
+        ErrorResponse errorResponseExpected = new ErrorResponse()
                 .withStatus(false)
                 .withMessage("Move failed (registration)")
                 .withStringCode("MOVE_ERROR");
@@ -88,11 +88,11 @@ public class UserRegTests extends TestBase {
         int statusCodeFromApi = am.getApiRegHelper().getRegStatusCodeFromApi(user3);
         System.out.println("statusCodeFromApi " + statusCodeFromApi);
 
-        RegResponse regResponseFromApi = am.getApiRegHelper().getRegResponseFromApi(user3);
-        System.out.println("regResponseExpected " + regResponseExpected);
+        ErrorResponse errorResponseFromApi = am.getApiRegHelper().getRegResponseFromApi(user3);
+        System.out.println("regResponseExpected " + errorResponseExpected);
 
         assertEquals(statusCodeFromApi, (409));
-        assertEquals(regResponseFromApi, regResponseExpected);
+        assertEquals(errorResponseFromApi, errorResponseExpected);
     }
 
 

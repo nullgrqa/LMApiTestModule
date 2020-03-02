@@ -5,16 +5,11 @@ import io.restassured.http.Method;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import model.RegResponse;
-import model.User;
+import model.ErrorResponse;
 import model.UserLogin;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
-
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.equalTo;
 
 public class ApiLoginHelper {
     String APIKEY = "NLdu-FEUbU-CCrd-otTWYJGhDfZZKYHAxVd-QksZEMMtCUkUKk";
@@ -83,29 +78,20 @@ public class ApiLoginHelper {
     }
 
 
-   /* public RegResponse getErrorUserLogin(String authorization) {
+    public ErrorResponse getErrorResponse(String authorization) {
         Response response = getBaseResponseForAuth(authorization);
         String responseBody = response.getBody().asString();
 
-        //JSONObject JSONResponseBody = new JSONArray(response.body().asString());
-
-response.then().body("errors[0].message", equalTo("fff"));
-        System.out.println("responseBody : " + responseBody);
         JsonPath jsonPath = response.jsonPath();
         Boolean status = jsonPath.get("status");
-        ArrayList errors = jsonPath.get("errors");
-        System.out.println("errors : " + errors);
-        errors.listIterator(0);
         String message = jsonPath.get("errors[0].message");
-        String stringCode = jsonPath.get("stringCode");
+        String stringCode = jsonPath.get("errors[0].stringCode");
 
-        System.out.println("message : " + message);
-
-        RegResponse regResponseFromApi = new RegResponse()
+        ErrorResponse errorResponseFromApi = new ErrorResponse()
                 .withStatus(status)
                 .withMessage(message)
                 .withStringCode(stringCode);
 
-        return regResponseFromApi;
-    } */
+        return errorResponseFromApi;
+    }
 }
