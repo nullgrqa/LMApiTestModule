@@ -1,11 +1,19 @@
 package tests;
 
+import io.restassured.response.Response;
+import model.RegResponse;
 import model.User;
 import model.UserLogin;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import java.util.Base64;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+
+import static junit.framework.Assert.assertEquals;
 
 public class UserLoginTests extends TestBase {
 
@@ -20,7 +28,7 @@ public class UserLoginTests extends TestBase {
     }
 
     @Test(dataProvider = "existingUsers")
-    public void checkLogin(String firstName, String lastName, String email,
+    public void checkSuccessfulLogin(String firstName, String lastName, String email,
                            String password, String phone, String customerNumber) {
 
         AuthData = email + ":"+ password;
@@ -56,6 +64,40 @@ public class UserLoginTests extends TestBase {
         s.assertEquals(userFromApi, userExpected);
         s.assertTrue(timeResponseForAuth < 2000);
         s.assertAll();
+    }
+
+    @DataProvider (name = "EmptyAuthParam")
+    Object[] getAuthParam() {
+        String authParam[] = {""};
+        return authParam;
+    }
+
+    @Test(dataProvider = "EmptyAuthParam")
+    public void CheckUnsuccessfulLogin(String authorization) {
+
+     //   int statusCodeForAuth = am.getApiLoginHelper().getStatusCodeForAuth(authorization);
+
+        RegResponse responseExpected = new RegResponse()
+                .withStatus(false)
+                .withMessage("Authorization parameter is not defined")
+                .withStringCode("REQUEST_ERROR");
+
+        Response response = am.getApiLoginHelper().getBaseResponseForAuth(authorization);
+
+        response.then().log().all().assertThat().statusCode(400)
+        .body("status", equalTo(responseExpected.getStatus()))
+        .body("errors[0].message", equalTo(responseExpected.getMessage()))
+        .body("errors[0].stringCode", equalTo(responseExpected.getStringCode()));
+
+       // RegResponse responseFromApi = am.getApiLoginHelper().getErrorUserLogin(authorization);
+        //System.out.println("responseFromApi : " + responseFromApi);
+
+        //System.out.println("statusCodeForAuth : " + statusCodeForAuth);
+
+//        SoftAssert s = new SoftAssert();
+//        assertEquals(statusCodeForAuth, 400);
+//        assertEquals(responseExpected, responseFromApi);
+//        s.assertAll();
 
     }
 }
