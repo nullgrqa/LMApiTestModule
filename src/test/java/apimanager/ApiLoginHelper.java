@@ -37,11 +37,9 @@ public class ApiLoginHelper {
         return response;
     }
 
-    public UserLogin getUserLoginFromApi(String authorization) {
+    public UserLogin getUserLogin(String authorization) {
 
-        UserLogin userLoginFromApi = getBaseResponseForAuth(authorization).then().extract().body().as(UserLogin.class);
-        //System.out.println("userLoginFromApi :" + userLoginFromApi);
-        //System.out.println("userFromApi : " + userFromApi);
+        UserLogin userLoginResponse = getBaseResponseForAuth(authorization).then().extract().body().as(UserLogin.class);
 
 //        String responseBody = response.getBody().asString();
 //        JsonPath jsonPath = response.jsonPath();
@@ -49,18 +47,10 @@ public class ApiLoginHelper {
 //        String refreshToken = jsonPath.get("refresh-token");
 //        String expiresIn = jsonPath.get("expires-in");
 
-//        System.out.println("accessToken : " + accessToken);
-//        System.out.println("refreshToken : " + refreshToken);
-//        System.out.println("expiresIn : " + expiresIn);
-
-//        String accessToken1=null;
-//        String refreshToken1=null;
-//        String expiresIn1=null;
-
-        return userLoginFromApi;
+        return userLoginResponse;
     }
 
-    public User getUserFromApi(String authorization) {
+    public User getUser(String authorization) {
         UserLogin userLoginFromApi = getBaseResponseForAuth(authorization).then().extract().body().as(UserLogin.class);
 
                 User userFromApi = new User()
@@ -70,7 +60,7 @@ public class ApiLoginHelper {
                 .withFirstName(userLoginFromApi.getUser().getFirstName())
                 .withLastName(userLoginFromApi.getUser().getLastName());
 
-                return userFromApi;
+        return userFromApi;
     }
 
     public int getStatusCodeForAuth(String authorization) {
@@ -93,11 +83,11 @@ public class ApiLoginHelper {
         String message = jsonPath.get("errors[0].message");
         String stringCode = jsonPath.get("errors[0].stringCode");
 
-        ErrorResponse errorResponseFromApi = new ErrorResponse()
+        ErrorResponse errorResponse = new ErrorResponse()
                 .withStatus(status)
                 .withMessage(message)
                 .withStringCode(stringCode);
 
-        return errorResponseFromApi;
+        return errorResponse;
     }
 }

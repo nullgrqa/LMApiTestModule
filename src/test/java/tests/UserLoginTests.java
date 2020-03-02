@@ -3,7 +3,6 @@ package tests;
 import model.ErrorResponse;
 import model.User;
 import model.UserLogin;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -22,7 +21,7 @@ public class UserLoginTests extends TestBase {
                                {"Sl","Fio","sl123321123@gmail.com","qwertyU2", "+71111111111", "13480011"}};
         return userData;
     }
-    
+
 
     @Test(dataProvider = "existingUsers")
     public void checkSuccessfulLogin(String firstName, String lastName, String email,
@@ -38,8 +37,8 @@ public class UserLoginTests extends TestBase {
                 .withFirstName(firstName)
                 .withLastName(lastName);
 
-        UserLogin userLoginFromApi = am.getApiLoginHelper().getUserLoginFromApi(authorization);
-        User userFromApi = am.getApiLoginHelper().getUserFromApi(authorization);
+        UserLogin userLoginResponse = am.getApiLoginHelper().getUserLogin(authorization);
+        User userFromResponse = am.getApiLoginHelper().getUser(authorization);
 
         int statusCodeForAuth = am.getApiLoginHelper().getStatusCodeForAuth(authorization);
         long timeResponseForAuth = am.getApiLoginHelper().getTimeResponseForAuth(authorization);
@@ -47,10 +46,10 @@ public class UserLoginTests extends TestBase {
         SoftAssert s = new SoftAssert();
 
         s.assertEquals(statusCodeForAuth, 200);
-        s.assertNotNull(userLoginFromApi.getAccessToken(), "Error! accessToken is null");
-        s.assertNotNull(userLoginFromApi.getRefreshToken(), "Error! refreshToken is null");
-        s.assertNotNull(userLoginFromApi.getExpiresIn(), "Error! expiresIn is null");
-        s.assertEquals(userFromApi, userExpected);
+        s.assertNotNull(userLoginResponse.getAccessToken(), "Error! accessToken is null");
+        s.assertNotNull(userLoginResponse.getRefreshToken(), "Error! refreshToken is null");
+        s.assertNotNull(userLoginResponse.getExpiresIn(), "Error! expiresIn is null");
+        s.assertEquals(userFromResponse, userExpected);
         s.assertTrue(timeResponseForAuth < 2000);
         s.assertAll();
     }
@@ -71,6 +70,7 @@ public class UserLoginTests extends TestBase {
                 .withMessage("Authorization parameter is not defined")
                 .withStringCode("REQUEST_ERROR");
 
+        //asserts with use Rest assured
 //        Response response = am.getApiLoginHelper().getBaseResponseForAuth(authorization);
 //
 //        response.then().log().all().assertThat().statusCode(400)
@@ -79,12 +79,12 @@ public class UserLoginTests extends TestBase {
 //        .body("errors[0].stringCode", equalTo(responseExpected.getStringCode()));
 
         ErrorResponse responseFromApi = am.getApiLoginHelper().getErrorResponse(authorization);
-
-        //System.out.println("statusCodeForAuth : " + statusCodeForAuth);
+        long timeResponseForAuth = am.getApiLoginHelper().getTimeResponseForAuth(authorization);
 
         SoftAssert s = new SoftAssert();
         s.assertEquals(statusCodeForAuth, 400);
-        s.assertEquals(responseExpected, responseFromApi);
+        s.assertEquals(responseFromApi, responseExpected);
+        s.assertTrue(timeResponseForAuth < 2000);
         s.assertAll();
 
     }
