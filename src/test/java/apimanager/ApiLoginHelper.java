@@ -6,6 +6,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import model.ErrorResponse;
+import model.User;
 import model.UserLogin;
 import org.json.simple.JSONObject;
 
@@ -40,14 +41,6 @@ public class ApiLoginHelper {
 
         UserLogin userLoginFromApi = getBaseResponseForAuth(authorization).then().extract().body().as(UserLogin.class);
         //System.out.println("userLoginFromApi :" + userLoginFromApi);
-
-//        User userFromApi = new User()
-//                .withCustomerNumber(userLoginFromApi.getUser().getCustomerNumber())
-//                .withEmail(userLoginFromApi.getUser().getEmail())
-//                .withPhone(userLoginFromApi.getUser().getPhone())
-//                .withFirstName(userLoginFromApi.getUser().getFirstName())
-//                .withLastName(userLoginFromApi.getUser().getLastName());
-
         //System.out.println("userFromApi : " + userFromApi);
 
 //        String responseBody = response.getBody().asString();
@@ -65,6 +58,19 @@ public class ApiLoginHelper {
 //        String expiresIn1=null;
 
         return userLoginFromApi;
+    }
+
+    public User getUserFromApi(String authorization) {
+        UserLogin userLoginFromApi = getBaseResponseForAuth(authorization).then().extract().body().as(UserLogin.class);
+
+                User userFromApi = new User()
+                .withCustomerNumber(userLoginFromApi.getUser().getCustomerNumber())
+                .withEmail(userLoginFromApi.getUser().getEmail())
+                .withPhone(userLoginFromApi.getUser().getPhone())
+                .withFirstName(userLoginFromApi.getUser().getFirstName())
+                .withLastName(userLoginFromApi.getUser().getLastName());
+
+                return userFromApi;
     }
 
     public int getStatusCodeForAuth(String authorization) {

@@ -3,14 +3,12 @@ package tests;
 import model.ErrorResponse;
 import model.User;
 import model.UserLogin;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import java.util.Base64;
-
 import static org.hamcrest.MatcherAssert.assertThat;
-
-
 import static junit.framework.Assert.assertEquals;
 
 public class UserLoginTests extends TestBase {
@@ -24,6 +22,7 @@ public class UserLoginTests extends TestBase {
                                {"Sl","Fio","sl123321123@gmail.com","qwertyU2", "+71111111111", "13480011"}};
         return userData;
     }
+    
 
     @Test(dataProvider = "existingUsers")
     public void checkSuccessfulLogin(String firstName, String lastName, String email,
@@ -39,16 +38,8 @@ public class UserLoginTests extends TestBase {
                 .withFirstName(firstName)
                 .withLastName(lastName);
 
-        //System.out.println("userExpected : " + userExpected);
-
         UserLogin userLoginFromApi = am.getApiLoginHelper().getUserLoginFromApi(authorization);
-
-        User userFromApi = new User()
-                .withCustomerNumber(userLoginFromApi.getUser().getCustomerNumber())
-                .withEmail(userLoginFromApi.getUser().getEmail())
-                .withPhone(userLoginFromApi.getUser().getPhone())
-                .withFirstName(userLoginFromApi.getUser().getFirstName())
-                .withLastName(userLoginFromApi.getUser().getLastName());
+        User userFromApi = am.getApiLoginHelper().getUserFromApi(authorization);
 
         int statusCodeForAuth = am.getApiLoginHelper().getStatusCodeForAuth(authorization);
         long timeResponseForAuth = am.getApiLoginHelper().getTimeResponseForAuth(authorization);
@@ -92,8 +83,8 @@ public class UserLoginTests extends TestBase {
         //System.out.println("statusCodeForAuth : " + statusCodeForAuth);
 
         SoftAssert s = new SoftAssert();
-        assertEquals(statusCodeForAuth, 400);
-        assertEquals(responseExpected, responseFromApi);
+        s.assertEquals(statusCodeForAuth, 400);
+        s.assertEquals(responseExpected, responseFromApi);
         s.assertAll();
 
     }
