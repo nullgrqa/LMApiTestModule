@@ -12,13 +12,16 @@ import org.json.simple.JSONObject;
 import static io.restassured.RestAssured.given;
 
 public class ApiLoginHelper {
+    String APIKEY = "NLdu-FEUbU-CCrd-otTWYJGhDfZZKYHAxVd-QksZEMMtCUkUKk";
+    String CONTENTTYPE = "application/json";
+    String BASEURI = "https://api.leroymerlin.ru/mobile";
 
-    public UserLogin getUserLoginFromApi(String authorization) {
-        RestAssured.baseURI = "https://api.leroymerlin.ru/mobile";
+    public Response getBaseResponseForAuth(String authorization) {
+        RestAssured.baseURI = BASEURI;
         RequestSpecification httpRequest = given();
 
-        httpRequest.header("Content-Type","application/json");
-        httpRequest.header("apikey","NLdu-FEUbU-CCrd-otTWYJGhDfZZKYHAxVd-QksZEMMtCUkUKk");
+        httpRequest.header("Content-Type",CONTENTTYPE);
+        httpRequest.header("apikey",APIKEY);
 
         JSONObject requestParams = new JSONObject();
         requestParams.put("Authorization", authorization);
@@ -27,7 +30,12 @@ public class ApiLoginHelper {
 
         Response response = httpRequest.request(Method.POST,"/user/auth");
 
-        UserLogin userLoginFromApi = response.then().extract().body().as(UserLogin.class);
+        return response;
+    }
+
+    public UserLogin getUserLoginFromApi(String authorization) {
+
+        UserLogin userLoginFromApi = getBaseResponseForAuth(authorization).then().extract().body().as(UserLogin.class);
         //System.out.println("userLoginFromApi :" + userLoginFromApi);
 
 //        User userFromApi = new User()
@@ -55,4 +63,18 @@ public class ApiLoginHelper {
 
         return userLoginFromApi;
     }
+
+    public int getStatusCodeForAuth(String authorization) {
+
+        return getBaseResponseForAuth(authorization).getStatusCode();
+    }
+
+    public long getTimeResponseForAuth (String authorization) {
+
+        return getBaseResponseForAuth(authorization).getTime();
+    }
+
+
+
+
 }
