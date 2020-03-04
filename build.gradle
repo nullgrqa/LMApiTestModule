@@ -33,6 +33,12 @@ task UserReg(type: Test) {
     }
 }
 
+task UserLogin(type: Test) {
+    useTestNG {
+        suites 'src/test/resources/UserLoginTestNG.xml'
+    }
+}
+
 test {
     useTestNG ()
 }
