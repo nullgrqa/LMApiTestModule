@@ -17,13 +17,22 @@ public class UserLoginTests extends TestBase {
 
     @DataProvider (name = "existingUsers")
     Object[] getUserData() {
-        String userData[][] = {{"I'lmatd","Baisna","tester1900@tester.ru", "qwertY12", "+79056788708", "11160670"},
-                               {"Sl","Fio","sl123321123@gmail.com","qwertyU2", "+71111111111", "13480011"}};
+        String userData[][] = {
+                {"I'lmatd","Baisna","tester1900@tester.ru", "qwertY12", "+79056788708", "11160670"},
+                {"Sl","Fio","sl123321123@gmail.com","qwertyU2", "+71111111111", "13480011"},
+                {"Slava", "Тестер", "s@gmail.com", "qwertyU1", "+79036788778", "13580239"},
+                {"Slava", "Тестер", "sl1@yandex.ru", "qwertyU1", "+71234567890", "13580269"},
+                {"Slava", "Тестер", "sl1@yahoo.com", "qwertyU1", "+71234567890", "13580285"},
+                {"Slava", "Тестер", "sl1@mail.ru", "qwertyU1", "+71234567890", "13580290"},
+                {"Slava", "Тестер", "sl1@nullgr.com", "qwertyU1", "+71234567890", "13580294"},
+                {"Slava", "Тестер", "slava12345SLAVA67890_TESTER000ORGANIZATI@gmail.com", "qwertyU1", "+71234567890", "13580342"},
+                {"Slava", "Тестер", "slava12345SLAVA67890_TESTER000ORGANIZAT3@gmail.com", "slava12345SLAVA67890_TESTER000ORGANIZAT2@gmail.com", "+71234567890", "13580382"}
+        };
         return userData;
     }
 
 
-    @Test(dataProvider = "existingUsers")
+    @Test(dataProvider = "existingUsers", priority = 1)
     public void checkSuccessfulLogin(String firstName, String lastName, String email,
                            String password, String phone, String customerNumber) {
 
@@ -60,8 +69,8 @@ public class UserLoginTests extends TestBase {
         return authParam;
     }
 
-    @Test(dataProvider = "EmptyAuthParam")
-    public void CheckUnsuccessfulLogin(String authorization) {
+    @Test(dataProvider = "EmptyAuthParam", priority = 2)
+    public void checkUnsuccessfulLogin(String authorization) {
 
         int statusCodeForAuth = am.getApiLoginHelper().getStatusCodeForAuth(authorization);
 
@@ -88,4 +97,110 @@ public class UserLoginTests extends TestBase {
         s.assertAll();
 
     }
+
+    @DataProvider(name = "notExistEmail")
+    Object[] getAuthParam2() {
+        String authParam[] = {
+                "czQ0MzM0NEB5YW5kZXgucnU6cXdlcnR5VTY3ODlvb2lnaA==",
+                "c2wxOnF3ZXJ0eVUy"};
+        return authParam;
+    }
+
+
+    @Test(dataProvider = "notExistEmail", priority = 3)
+    public void checkLoginNotExistEmail(String authorization) {
+
+        ErrorResponse responseExpected = new ErrorResponse()
+                .withStatus(false)
+                .withMessage("Wrong login")
+                .withStringCode("LOGIN_ERROR");
+
+        int statusCodeForAuth = am.getApiLoginHelper().getStatusCodeForAuth(authorization);
+        ErrorResponse responseFromApi = am.getApiLoginHelper().getErrorResponse(authorization);
+        long timeResponseForAuth = am.getApiLoginHelper().getTimeResponseForAuth(authorization);
+
+        SoftAssert s = new SoftAssert();
+        s.assertEquals(statusCodeForAuth, 400);
+        s.assertEquals(responseFromApi, responseExpected);
+        s.assertTrue(timeResponseForAuth < 2000);
+        s.assertAll();
+    }
+
+    @DataProvider(name = "notExistPasswordOrEmptyPassword")
+    Object[] getAuthParam3() {
+        String authParam[] = {"c2wxMjMzMjExMjNAZ21haWwuY29tOnF3ZXJ0eVUwMTIz",
+                              "c2wxMjMzMjExMjNAZ21haWwuY29tOg==",
+        "c2wxQG1haWwucnU6cXdlcnR5VXU=",
+        "c2wxQG1haWwucnU6cXdlcnR5MTIzNA==",
+        "c2wxQG1haWwucnU6cXdlcnR5"};
+        return authParam;
+    }
+
+
+    @Test(dataProvider = "notExistPasswordOrEmptyPassword", priority = 4)
+    public void checkLoginNotExistPasswordOrEmptyPassword(String authorization) {
+
+        ErrorResponse responseExpected = new ErrorResponse()
+                .withStatus(false)
+                .withMessage("Wrong password")
+                .withStringCode("PASSWORD_ERROR");
+
+        int statusCodeForAuth = am.getApiLoginHelper().getStatusCodeForAuth(authorization);
+        ErrorResponse responseFromApi = am.getApiLoginHelper().getErrorResponse(authorization);
+        long timeResponseForAuth = am.getApiLoginHelper().getTimeResponseForAuth(authorization);
+
+        SoftAssert s = new SoftAssert();
+        s.assertEquals(statusCodeForAuth, 400);
+        s.assertEquals(responseFromApi, responseExpected);
+        s.assertTrue(timeResponseForAuth < 2000);
+        s.assertAll();
+    }
+
+    @DataProvider(name = "EmptyEmail")
+    Object[] getAuthParam4() {
+        String authParam[] = {"OnF3ZXJ0eVUwMTIz"};
+        return authParam;
+    }
+
+
+    @Test(dataProvider = "EmptyEmail", priority = 5)
+    public void checkLoginEmptyEmeil(String authorization) {
+
+        ErrorResponse responseExpected = new ErrorResponse()
+                .withStatus(false)
+                .withMessage("Oauth failed (check login)")
+                .withStringCode("OAUTH_ERROR");
+
+        int statusCodeForAuth = am.getApiLoginHelper().getStatusCodeForAuth(authorization);
+        ErrorResponse responseFromApi = am.getApiLoginHelper().getErrorResponse(authorization);
+        long timeResponseForAuth = am.getApiLoginHelper().getTimeResponseForAuth(authorization);
+
+        SoftAssert s = new SoftAssert();
+        s.assertEquals(statusCodeForAuth, 409);
+        s.assertEquals(responseFromApi, responseExpected);
+        s.assertTrue(timeResponseForAuth < 2000);
+        s.assertAll();
+    }
+
+    @DataProvider(name = "NotExpectedSymbolsInBase64")
+    Object[] getAuthParam5() {
+        String authParam[] = {"sl1@gmail.com:qwertyU2"};
+        return authParam;
+    }
+
+
+    @Test(dataProvider = "NotExpectedSymbolsInBase64", priority = 6)
+    public void checkNotExpectedSymbolsInBase64(String authorization) {
+
+
+        int statusCodeForAuth = am.getApiLoginHelper().getStatusCodeForAuth(authorization);
+        long timeResponseForAuth = am.getApiLoginHelper().getTimeResponseForAuth(authorization);
+
+        SoftAssert s = new SoftAssert();
+        s.assertEquals(statusCodeForAuth, 400);
+        s.assertTrue(timeResponseForAuth < 2000);
+        s.assertAll();
+    }
+
+
 }
