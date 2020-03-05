@@ -18,14 +18,18 @@ public class UserLoginTests extends TestBase {
     @DataProvider (name = "existingUsers")
     Object[] getUserData() {
         String userData[][] = {
+                // just exist users
                 {"I'lmatd","Baisna","tester1900@tester.ru", "qwertY12", "+79056788708", "11160670"},
                 {"Sl","Fio","sl123321123@gmail.com","qwertyU2", "+71111111111", "13480011"},
+                // Users with different domain name in email
                 {"Slava", "Тестер", "s@gmail.com", "qwertyU1", "+79036788778", "13580239"},
                 {"Slava", "Тестер", "sl1@yandex.ru", "qwertyU1", "+71234567890", "13580269"},
                 {"Slava", "Тестер", "sl1@yahoo.com", "qwertyU1", "+71234567890", "13580285"},
                 {"Slava", "Тестер", "sl1@mail.ru", "qwertyU1", "+71234567890", "13580290"},
                 {"Slava", "Тестер", "sl1@nullgr.com", "qwertyU1", "+71234567890", "13580294"},
+                // user with max quantity characters in Email 50 symbols
                 {"Slava", "Тестер", "slava12345SLAVA67890_TESTER000ORGANIZATI@gmail.com", "qwertyU1", "+71234567890", "13580342"},
+                // user with max quantity characters in Email and Password 50 symbols
                 {"Slava", "Тестер", "slava12345SLAVA67890_TESTER000ORGANIZAT3@gmail.com", "slava12345SLAVA67890_TESTER000ORGANIZAT2@gmail.com", "+71234567890", "13580382"}
         };
         return userData;
@@ -101,7 +105,9 @@ public class UserLoginTests extends TestBase {
     @DataProvider(name = "notExistEmail")
     Object[] getAuthParam2() {
         String authParam[] = {
+                // not exist user in DB
                 "czQ0MzM0NEB5YW5kZXgucnU6cXdlcnR5VTY3ODlvb2lnaA==",
+                // not correct email sl1:qwertyU2
                 "c2wxOnF3ZXJ0eVUy"};
         return authParam;
     }
@@ -128,11 +134,17 @@ public class UserLoginTests extends TestBase {
 
     @DataProvider(name = "notExistPasswordOrEmptyPassword")
     Object[] getAuthParam3() {
-        String authParam[] = {"c2wxMjMzMjExMjNAZ21haWwuY29tOnF3ZXJ0eVUwMTIz",
-                              "c2wxMjMzMjExMjNAZ21haWwuY29tOg==",
-        "c2wxQG1haWwucnU6cXdlcnR5VXU=",
-        "c2wxQG1haWwucnU6cXdlcnR5MTIzNA==",
-        "c2wxQG1haWwucnU6cXdlcnR5"};
+        String authParam[] = {
+                // sl123321123@gmail.com:qwertyU0123
+                "c2wxMjMzMjExMjNAZ21haWwuY29tOnF3ZXJ0eVUwMTIz",
+                // sl123321123@gmail.com:
+                "c2wxMjMzMjExMjNAZ21haWwuY29tOg==",
+                // sl1@mail.ru:qwertyUu not correct password (without digit)
+                "c2wxQG1haWwucnU6cXdlcnR5VXU=",
+                // sl1@mail.ru:qwerty1234 not correct password (without Uppercase symbol)
+                "c2wxQG1haWwucnU6cXdlcnR5MTIzNA==",
+                // sl1@mail.ru:qwerty not correct password (less characters than 8)
+                "c2wxQG1haWwucnU6cXdlcnR5"};
         return authParam;
     }
 
@@ -158,13 +170,16 @@ public class UserLoginTests extends TestBase {
 
     @DataProvider(name = "EmptyEmail")
     Object[] getAuthParam4() {
-        String authParam[] = {"OnF3ZXJ0eVUwMTIz"};
+        String authParam[] = {
+                // :qwertyU0123
+                "OnF3ZXJ0eVUwMTIz"
+        };
         return authParam;
     }
 
 
     @Test(dataProvider = "EmptyEmail", priority = 5)
-    public void checkLoginEmptyEmeil(String authorization) {
+    public void checkLoginEmptyEmail(String authorization) {
 
         ErrorResponse responseExpected = new ErrorResponse()
                 .withStatus(false)
