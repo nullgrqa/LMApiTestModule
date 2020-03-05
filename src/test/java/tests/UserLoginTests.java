@@ -1,5 +1,6 @@
 package tests;
 
+import io.restassured.response.Response;
 import model.ErrorResponse;
 import model.User;
 import model.UserLogin;

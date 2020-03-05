@@ -5,16 +5,19 @@ import model.UserReg;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+import io.restassured.response.Response;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class UserRegTests extends TestBase {
     String email;
 
-    @BeforeMethod
     public String getRandomEmail() {
         String randomString = am.getApiRegHelper().getRandomeString();
         email = randomString + "@gmail.com";
@@ -26,14 +29,13 @@ public class UserRegTests extends TestBase {
         Object[] getUser() {
         String user[][] = {{"Slava", "Test", "62", "+79036788778", getRandomEmail(), "qwertyU1"}};
         return user;
-    }
+        }
 
 
     @Test(dataProvider = "validUserData") // Registration check. Adding uniq user. Successful registration.
     public void checkUserReg_1(String firstName, String lastName, String refStoreId, String phone,
-                               String email, String password) throws IOException, URISyntaxException {
-        System.out.println("// Registration check. Adding uniq user. Successful registration.");
-
+                               String email, String password)
+    {
         UserReg user2 = new UserReg()
                 .withFirstName(firstName)
                 .withLastName(lastName)
@@ -42,12 +44,29 @@ public class UserRegTests extends TestBase {
                 .withEmail(email)
                 .withPassword(password);
 
-        System.out.println("user2 : " + user2);
+        Response response = am.getApiRegHelper().getBaseResponseForReg(user2);
 
-        int statusCodeFromApi = am.getApiRegHelper().getRegStatusCodeFromApi(user2);
-        System.out.println("statusCodeFromApi " + statusCodeFromApi);
+        response.then().log().all().assertThat().statusCode(200)
+        .body("msg", equalTo("success"));
+    }
 
-        assertEquals(statusCodeFromApi, (200));
+    @Test(dataProvider = "validUserData")
+    public void checkTimeOfResponseSuccessReg(String firstName, String lastName, String refStoreId, String phone,
+                                              String email, String password)
+    {
+        UserReg user2 = new UserReg()
+                .withFirstName(firstName)
+                .withLastName(lastName)
+                .withRefStoreId(Integer.parseInt(refStoreId))
+                .withPhone(phone)
+                .withEmail(email)
+                .withPassword(password);
+
+        long timeResponseForReg = am.getApiRegHelper().getTimeResponseForReg(user2);
+
+        System.out.println("timeResponseForReg : " + timeResponseForReg);
+
+        assertTrue(timeResponseForReg < 3000);
     }
 
     @Test //Registration check. User already exist in DB.

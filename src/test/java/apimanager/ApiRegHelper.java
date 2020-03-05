@@ -5,6 +5,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import io.restassured.RestAssured;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import model.ErrorResponse;
 import model.UserReg;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -16,16 +20,60 @@ import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import static io.restassured.RestAssured.given;
+
 public class ApiRegHelper {
+
+    String APIKEY = "NLdu-FEUbU-CCrd-otTWYJGhDfZZKYHAxVd-QksZEMMtCUkUKk";
+    String CONTENTTYPE = "application/json";
+    String BASEURI = "https://api.leroymerlin.ru/mobile";
+
     public String getRandomeString() {
         String generatedstring= RandomStringUtils.randomAlphabetic(8);
         return(generatedstring);
     }
+
+    public Response getBaseResponseForReg(UserReg user) {
+        RestAssured.baseURI = BASEURI;
+        RequestSpecification httpRequest = given();
+
+        httpRequest.header("Content-Type",CONTENTTYPE);
+        httpRequest.header("apikey",APIKEY);
+
+        JSONObject requestParams = new JSONObject();
+        requestParams.put("firstName", user.getFirstName());
+        requestParams.put("lastName", user.getLastName());
+        requestParams.put("refStoreId", user.getRefStoreId());
+        requestParams.put("email", user.getEmail());
+        requestParams.put("phone", user.getPhone());
+        requestParams.put("password", user.getPassword());
+
+        httpRequest.body(requestParams.toJSONString());
+
+        Response response = httpRequest.request(Method.POST,"/user/register");
+
+        String responseBody = response.getBody().asString();
+        System.out.println("responseBody : " + responseBody);
+
+        return response;
+    }
+
+    public int getStatusCodeForReg(UserReg user) {
+        return getBaseResponseForReg(user).getStatusCode();
+    }
+
+    public long getTimeResponseForReg(UserReg user) {
+        return getBaseResponseForReg(user).getTime();
+    }
+
+
+
 
     public int getRegStatusCodeFromApi(UserReg user1) throws IOException, URISyntaxException {
         CloseableHttpClient client = HttpClients.createDefault();
@@ -136,4 +184,6 @@ public class ApiRegHelper {
 
         return errorResponse;
     }
+
+
 }

@@ -8,6 +8,7 @@ import io.restassured.specification.RequestSpecification;
 import model.ErrorResponse;
 import model.User;
 import model.UserLogin;
+import model.UserReg;
 import org.json.simple.JSONObject;
 
 import static io.restassured.RestAssured.given;
@@ -90,4 +91,5 @@ public class ApiLoginHelper {
 
         return errorResponse;
     }
+
 }
