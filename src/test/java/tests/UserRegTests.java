@@ -3,6 +3,7 @@ package tests;
 import model.ErrorResponse;
 import model.UserReg;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -21,17 +22,27 @@ public class UserRegTests extends TestBase {
         return email;
     }
 
-    @Test // Registration check. Adding uniq user. Successful registration.
-    public void checkUserReg_1() throws IOException, URISyntaxException {
+    @DataProvider (name = "validUserData")
+        Object[] getUser() {
+        String user[][] = {{"Slava", "Test", "62", "+79036788778", getRandomEmail(), "qwertyU1"}};
+        return user;
+    }
+
+
+    @Test(dataProvider = "validUserData") // Registration check. Adding uniq user. Successful registration.
+    public void checkUserReg_1(String firstName, String lastName, String refStoreId, String phone,
+                               String email, String password) throws IOException, URISyntaxException {
         System.out.println("// Registration check. Adding uniq user. Successful registration.");
 
         UserReg user2 = new UserReg()
-                .withFirstName("Slava")
-                .withLastName("Test")
-                .withRefStoreId(62)
-                .withPhone("+79036788778")
+                .withFirstName(firstName)
+                .withLastName(lastName)
+                .withRefStoreId(Integer.parseInt(refStoreId))
+                .withPhone(phone)
                 .withEmail(email)
-                .withPassword("qwertyU1");
+                .withPassword(password);
+
+        System.out.println("user2 : " + user2);
 
         int statusCodeFromApi = am.getApiRegHelper().getRegStatusCodeFromApi(user2);
         System.out.println("statusCodeFromApi " + statusCodeFromApi);
