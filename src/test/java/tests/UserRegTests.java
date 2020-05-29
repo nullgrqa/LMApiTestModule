@@ -16,18 +16,11 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class UserRegTests extends TestBase {
-    String email;
 
-    public String getRandomEmail() {
-        String randomString = am.getApiRegHelper().getRandomeString();
-        email = randomString + "@gmail.com";
-        System.out.println(email);
-        return email;
-    }
 
     @DataProvider (name = "validUserData")
         Object[] getUser() {
-        String user[][] = {{"Slava", "Test", "62", "+79036788778", getRandomEmail(), "qwertyU1"}};
+        String user[][] = {{"Slava", "Test", "62", "+79036788778", am.getApiRegHelper().getRandomEmail(), "qwertyU1"}};
         return user;
         }
 
@@ -68,7 +61,7 @@ public class UserRegTests extends TestBase {
 
         assertTrue(timeResponseForReg < 3000);
     }
-
+/*
     @Test //Registration check. User already exist in DB.
     public void checkUserReg_2() throws IOException, URISyntaxException {
         System.out.println("//Registration check. User already exist in DB.");
@@ -125,7 +118,7 @@ public class UserRegTests extends TestBase {
         assertEquals(errorResponseFromApi, errorResponseExpected);
     }
 
-
+*/
 }
 
 

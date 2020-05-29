@@ -30,6 +30,7 @@ import static io.restassured.RestAssured.given;
 
 public class ApiRegHelper {
 
+    String email;
     String APIKEY = "NLdu-FEUbU-CCrd-otTWYJGhDfZZKYHAxVd-QksZEMMtCUkUKk";
     String CONTENTTYPE = "application/json";
     String BASEURI = "https://api.leroymerlin.ru/mobile";
@@ -37,6 +38,13 @@ public class ApiRegHelper {
     public String getRandomeString() {
         String generatedstring= RandomStringUtils.randomAlphabetic(8);
         return(generatedstring);
+    }
+
+    public String getRandomEmail() {
+        String randomString = getRandomeString();
+        email = randomString + "@gmail.com";
+        System.out.println(email);
+        return email;
     }
 
     public Response getBaseResponseForReg(UserReg user) {
