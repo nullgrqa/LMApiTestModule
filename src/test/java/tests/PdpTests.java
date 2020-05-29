@@ -9,5 +9,10 @@ public class PdpTests extends TestBase {
     public void parsePdpResponse(){
 
         Response response = am.getApiPdpHelper().getPdpResponse();
+        String displayedName = response.jsonPath().get("displayedName");
+        System.out.println("displayedName: " + displayedName);
+
+        int articul = response.jsonPath().get("articul");
+        System.out.println("articul: " + articul);
     }
 }

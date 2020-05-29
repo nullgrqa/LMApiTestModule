@@ -24,17 +24,7 @@ public class ApiPdpHelper {
         httpRequest.header("apikey", APIKEY);
         httpRequest.header("Date", DATE);
 
-//        JSONObject requestParams = new JSONObject();
-//        requestParams.put("idProduct", 10073940);
-//        requestParams.put("refStoreId", 62);
-//        requestParams.put("regionsId", 34);
-
-//        httpRequest.body(requestParams.toJSONString());
-
-//        System.out.println(requestParams.toJSONString());
-
         Response response = httpRequest.request(Method.GET,"/v2/products/getProduct?idProduct=10073940&refStoreId=62&regionsId=34");
-
 
         String responseBody = response.getBody().asString();
         System.out.println("responseBody : " + responseBody);
