@@ -6,6 +6,8 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.json.simple.JSONObject;
 
+import java.time.LocalDateTime;
+
 import static io.restassured.RestAssured.given;
 
 public class ApiPdpHelper {
@@ -13,7 +15,15 @@ public class ApiPdpHelper {
     String APIKEY = "NLdu-FEUbU-CCrd-otTWYJGhDfZZKYHAxVd-QksZEMMtCUkUKk";
     String CONTENTTYPE = "application/json";
     String BASEURI = "https://api.leroymerlin.ru/mobile";
-    String DATE = "2020-05-29T21:42:15+03:00";
+    String DATE = getLocalDateTime()+"+03:00";
+
+    public String getLocalDateTime() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        //System.out.println(localDateTime.toString());
+        String localDateTimeFirstPart = localDateTime.toString().split("\\.", 2)[0];
+        //System.out.println("localDateTimeFirstPart : " + localDateTimeFirstPart);
+        return localDateTimeFirstPart;
+    }
 
 
     public Response getPdpResponse() {
