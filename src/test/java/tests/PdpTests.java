@@ -4,6 +4,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
 import java.io.PrintStream;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,14 +63,22 @@ public class PdpTests extends TestBase {
         System.out.println("deliveryNearestDateFromResponse : " + deliveryNearestDateFromResponse);
 
         String localDateTimeFirstPartFromResp = deliveryNearestDateFromResponse.toString().split("T", 2)[0];
-        System.out.println("localDateTimeFirstPart: " + localDateTimeFirstPartFromResp);
+        System.out.println("localDateTimeFirstPartFromResp: " + localDateTimeFirstPartFromResp);
 
         SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd");
         Date dateValue = input.parse(localDateTimeFirstPartFromResp);
 
+        Date dateValue_2 = new SimpleDateFormat("yyyy-MM-dd").parse(localDateTimeFirstPartFromResp);
+        String dateValue_3 = new SimpleDateFormat("EEEE", new Locale("ru")).format(dateValue_2);
+        String dateRusAll =
+                DateFormat.getDateInstance(SimpleDateFormat.LONG, new Locale("ru")).format(dateValue_2);
+        System.out.println("dateRus : " + dateRusAll);
 
-        String s = System.out.printf("%1$s %2$tA %2$td %2$tB", "Доставка:", dateValue).toString().split("java", 2)[0];
-        System.out.println(s);
+        String dateRus1Part = dateRusAll.split(" ", 3)[0];
+        String dateRus2Part = dateRusAll.split(" ", 3)[1];
+
+        String together = "Доставка: " + dateValue_3 + ", " + dateRus1Part + " " + dateRus2Part;
+        System.out.println(together);
 
     }
 
