@@ -3,8 +3,12 @@ package tests;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
+import java.io.PrintStream;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import static junit.framework.Assert.assertEquals;
@@ -56,6 +60,17 @@ public class PdpTests extends TestBase {
         Response response = am.getApiPdpHelper().getPdpResponse();
         String deliveryNearestDateFromResponse = response.jsonPath().get("eligibility.deliveryNearestDate");
         System.out.println("deliveryNearestDateFromResponse : " + deliveryNearestDateFromResponse);
+
+        String localDateTimeFirstPartFromResp = deliveryNearestDateFromResponse.toString().split("T", 2)[0];
+        System.out.println("localDateTimeFirstPart: " + localDateTimeFirstPartFromResp);
+
+        SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateValue = input.parse(localDateTimeFirstPartFromResp);
+
+
+        String s = System.out.printf("%1$s %2$tA %2$td %2$tB", "Доставка:", dateValue).toString().split("java", 2)[0];
+        System.out.println(s);
+
     }
 
 }
