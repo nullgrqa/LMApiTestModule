@@ -59,25 +59,23 @@ public class PdpTests extends TestBase {
     @Test
     public void CheckDeliveryBlock() throws ParseException {
         Response response = am.getApiPdpHelper().getPdpResponse();
-        String deliveryNearestDateFromResponse = response.jsonPath().get("eligibility.deliveryNearestDate");
-        System.out.println("deliveryNearestDateFromResponse : " + deliveryNearestDateFromResponse);
+        String deliveryNearestDateFromResp = response.jsonPath().get("eligibility.deliveryNearestDate");
+        System.out.println("deliveryNearestDateFromResp : " + deliveryNearestDateFromResp);
 
-        String localDateTimeFirstPartFromResp = deliveryNearestDateFromResponse.toString().split("T", 2)[0];
-        System.out.println("localDateTimeFirstPartFromResp: " + localDateTimeFirstPartFromResp);
+        String dateWithoutT = deliveryNearestDateFromResp.split("T", 2)[0];
+        System.out.println("dateWithoutT: " + dateWithoutT);
 
         SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateValue = input.parse(localDateTimeFirstPartFromResp);
-
-        Date dateValue_2 = new SimpleDateFormat("yyyy-MM-dd").parse(localDateTimeFirstPartFromResp);
-        String dateValue_3 = new SimpleDateFormat("EEEE", new Locale("ru")).format(dateValue_2);
+        Date dateValue = new SimpleDateFormat("yyyy-MM-dd").parse(dateWithoutT);
+        String dateOfWeek = new SimpleDateFormat("EEEE", new Locale("ru")).format(dateValue);
         String dateRusAll =
-                DateFormat.getDateInstance(SimpleDateFormat.LONG, new Locale("ru")).format(dateValue_2);
+                DateFormat.getDateInstance(SimpleDateFormat.LONG, new Locale("ru")).format(dateValue);
         System.out.println("dateRus : " + dateRusAll);
 
         String dateRus1Part = dateRusAll.split(" ", 3)[0];
         String dateRus2Part = dateRusAll.split(" ", 3)[1];
 
-        String together = "Доставка: " + dateValue_3 + ", " + dateRus1Part + " " + dateRus2Part;
+        String together = "Доставка: " + dateOfWeek + ", " + dateRus1Part + " " + dateRus2Part;
         System.out.println(together);
 
     }
