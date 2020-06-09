@@ -7,6 +7,7 @@ import java.io.PrintStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -58,6 +59,12 @@ public class PdpTests extends TestBase {
 
     @Test
     public void CheckDeliveryBlock() throws ParseException {
+
+        String timeNow = am.getApiPdpHelper().getLocalDateTime();
+        String dateNowWithoutT = timeNow.split("T", 2)[0];
+        System.out.println("dateNowWithoutT: " + dateNowWithoutT);
+        Date dateNowValue = new SimpleDateFormat("yyyy-MM-dd").parse(dateNowWithoutT);
+
         Response response = am.getApiPdpHelper().getPdpResponse();
         String deliveryNearestDateFromResp = response.jsonPath().get("eligibility.deliveryNearestDate");
         System.out.println("deliveryNearestDateFromResp : " + deliveryNearestDateFromResp);
@@ -66,7 +73,8 @@ public class PdpTests extends TestBase {
         System.out.println("dateWithoutT: " + dateWithoutT);
 
         SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateValue = new SimpleDateFormat("yyyy-MM-dd").parse(dateWithoutT);
+        Date dateValue = new SimpleDateFormat("yyyy-MM-dd").parse("2020-06-12");
+
         String dateOfWeek = new SimpleDateFormat("EEEE", new Locale("ru")).format(dateValue);
         String dateRusAll =
                 DateFormat.getDateInstance(SimpleDateFormat.LONG, new Locale("ru")).format(dateValue);
@@ -75,8 +83,29 @@ public class PdpTests extends TestBase {
         String dateRus1Part = dateRusAll.split(" ", 3)[0];
         String dateRus2Part = dateRusAll.split(" ", 3)[1];
 
-        String together = "Доставка: " + dateOfWeek + ", " + dateRus1Part + " " + dateRus2Part;
+        String together ;
+        long s;
+
+
+        if(dateNowValue.equals(dateValue)) {
+            together = "Доставка: " + "сегодня";
+        } else {
+            if((dateValue.getTime()-dateNowValue.getTime())/100000 == 864) {
+                together = "Доставка: " + "завтра" + ", " + dateRus1Part + " " + dateRus2Part;
+            }
+            else {
+                together = "Доставка: " + dateOfWeek + ", " + dateRus1Part + " " + dateRus2Part;
+            }
+        }
+
+//        long t1 = dateValue.getTime();
+//        long t2 = dateNowValue.getTime();
+//        long t3 = t1-t2;
+//        System.out.println("t3 " + t3);
         System.out.println(together);
+
+
+
 
     }
 

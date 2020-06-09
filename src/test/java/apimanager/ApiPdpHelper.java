@@ -19,9 +19,9 @@ public class ApiPdpHelper {
 
     public String getLocalDateTime() {
         LocalDateTime localDateTime = LocalDateTime.now();
-        //System.out.println(localDateTime.toString());
+        System.out.println("localDateTime : " + localDateTime.toString());
         String localDateTimeFirstPart = localDateTime.toString().split("\\.", 2)[0];
-        //System.out.println("localDateTimeFirstPart : " + localDateTimeFirstPart);
+        System.out.println("localDateTimeFirstPart : " + localDateTimeFirstPart);
         return localDateTimeFirstPart;
     }
 
