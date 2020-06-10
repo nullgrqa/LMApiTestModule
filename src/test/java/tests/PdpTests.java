@@ -58,7 +58,7 @@ public class PdpTests extends TestBase {
     }
 
     @Test
-    public void CheckDeliveryBlock() throws ParseException {
+    public void checkDeliveryBlock() throws ParseException {
 
         String timeNow = am.getApiPdpHelper().getLocalDateTime();
         String dateNowWithoutT = timeNow.split("T", 2)[0];
@@ -76,6 +76,7 @@ public class PdpTests extends TestBase {
         Date dateValue = new SimpleDateFormat("yyyy-MM-dd").parse("2020-06-12");
 
         String dateOfWeek = new SimpleDateFormat("EEEE", new Locale("ru")).format(dateValue);
+        String dateOfWeekUpper = dateOfWeek.substring(0, 1).toUpperCase() + dateOfWeek.substring(1);
         String dateRusAll =
                 DateFormat.getDateInstance(SimpleDateFormat.LONG, new Locale("ru")).format(dateValue);
         System.out.println("dateRus : " + dateRusAll);
@@ -84,17 +85,17 @@ public class PdpTests extends TestBase {
         String dateRus2Part = dateRusAll.split(" ", 3)[1];
 
         String together ;
-        long s;
+//        long s;
 
 
         if(dateNowValue.equals(dateValue)) {
-            together = "Доставка: " + "сегодня";
+            together = "Доставка • " + "Сегодня";
         } else {
             if((dateValue.getTime()-dateNowValue.getTime())/100000 == 864) {
-                together = "Доставка: " + "завтра" + ", " + dateRus1Part + " " + dateRus2Part;
+                together = "Доставка • " + "Завтра" + ", " + dateRus1Part + " " + dateRus2Part;
             }
             else {
-                together = "Доставка: " + dateOfWeek + ", " + dateRus1Part + " " + dateRus2Part;
+                together = "Доставка • " + dateOfWeekUpper + ", " + dateRus1Part + " " + dateRus2Part;
             }
         }
 
@@ -103,9 +104,6 @@ public class PdpTests extends TestBase {
 //        long t3 = t1-t2;
 //        System.out.println("t3 " + t3);
         System.out.println(together);
-
-
-
 
     }
 
