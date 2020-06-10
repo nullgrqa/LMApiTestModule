@@ -2,6 +2,7 @@ package tests;
 
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
+import ru.yandex.qatools.allure.annotations.Step;
 
 import java.io.PrintStream;
 import java.text.DateFormat;
@@ -73,13 +74,13 @@ public class PdpTests extends TestBase {
         System.out.println("dateWithoutT: " + dateWithoutT);
 
         SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateValue = new SimpleDateFormat("yyyy-MM-dd").parse("2020-06-12");
+        Date dateValue = new SimpleDateFormat("yyyy-MM-dd").parse(dateWithoutT);
 
         String dateOfWeek = new SimpleDateFormat("EEEE", new Locale("ru")).format(dateValue);
         String dateOfWeekUpper = dateOfWeek.substring(0, 1).toUpperCase() + dateOfWeek.substring(1);
         String dateRusAll =
                 DateFormat.getDateInstance(SimpleDateFormat.LONG, new Locale("ru")).format(dateValue);
-        System.out.println("dateRus : " + dateRusAll);
+        System.out.println("dateRusAll : " + dateRusAll);
 
         String dateRus1Part = dateRusAll.split(" ", 3)[0];
         String dateRus2Part = dateRusAll.split(" ", 3)[1];
@@ -103,6 +104,56 @@ public class PdpTests extends TestBase {
 //        long t2 = dateNowValue.getTime();
 //        long t3 = t1-t2;
 //        System.out.println("t3 " + t3);
+        System.out.println(together);
+
+    }
+
+    @Test
+    public void checkPickupBlock() throws ParseException {
+
+        String timeNow = am.getApiPdpHelper().getLocalDateTime();
+        String dateNowWithoutT = timeNow.split("T", 2)[0];
+        System.out.println("dateNowWithoutT: " + dateNowWithoutT);
+        Date dateNowValue = new SimpleDateFormat("yyyy-MM-dd").parse(dateNowWithoutT);
+
+        Response response = am.getApiPdpHelper().getPdpResponse();
+        String pickupNearestDateFromResp = response.jsonPath().get("eligibility.pickupNearestDate");
+        System.out.println("pickupNearestDateFromResp : " + pickupNearestDateFromResp);
+
+        String dateWithoutT = pickupNearestDateFromResp.split("T", 2)[0];
+        System.out.println("dateWithoutT: " + dateWithoutT);
+
+        SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateValue = new SimpleDateFormat("yyyy-MM-dd").parse(dateWithoutT);
+
+        String dateOfWeek = new SimpleDateFormat("EEEE", new Locale("ru")).format(dateValue);
+        String dateOfWeekUpper = dateOfWeek.substring(0, 1).toUpperCase() + dateOfWeek.substring(1);
+        String dateRusAll =
+                DateFormat.getDateInstance(SimpleDateFormat.LONG, new Locale("ru")).format(dateValue);
+        System.out.println("dateRusAll : " + dateRusAll);
+
+        String dateRus1Part = dateRusAll.split(" ", 3)[0];
+        String dateRus2Part = dateRusAll.split(" ", 3)[1];
+
+        String together ;
+//        long s;
+
+
+        if(dateNowValue.equals(dateValue)) {
+            together = "Самовывоз • " + "Сегодня";
+        } else {
+            if((dateValue.getTime()-dateNowValue.getTime())/100000 == 864) {
+                together = "Самовывоз • " + "Завтра" + ", " + dateRus1Part + " " + dateRus2Part;
+            }
+            else {
+                together = "Самовывоз • " + dateOfWeekUpper + ", " + dateRus1Part + " " + dateRus2Part;
+            }
+        }
+
+        long t1 = dateValue.getTime();
+        long t2 = dateNowValue.getTime();
+        long t3 = t1-t2;
+        System.out.println("t3 " + t3);
         System.out.println(together);
 
     }
