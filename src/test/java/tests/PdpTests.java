@@ -1,6 +1,7 @@
 package tests;
 
 import io.restassured.response.Response;
+import model.Characteristics;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Step;
 
@@ -9,14 +10,12 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 
 import static junit.framework.Assert.assertEquals;
 
 public class PdpTests extends TestBase {
+
 
     @Test
     public void parsePdpResponse() {
@@ -155,6 +154,55 @@ public class PdpTests extends TestBase {
         long t3 = t1-t2;
         System.out.println("t3 " + t3);
         System.out.println(together);
+
+    }
+
+    @Test
+    public void checkCharacteristics() {
+        Response response = am.getApiPdpHelper().getPdpResponse();
+        ArrayList descriptionArray = response.jsonPath().get("characteristics.description");
+        String description = (String) descriptionArray.get(0);
+        System.out.println("description: " + description);
+        System.out.println("descriptionArray : " + descriptionArray);
+
+        ArrayList valueArray = response.jsonPath().get("characteristics.value");
+        ArrayList value1 =  (ArrayList) valueArray.get(4);
+        System.out.println("value1 : " + value1);
+        System.out.println("valueArray : " + valueArray);
+
+       response.then().extract().body().as(Characteristics.class);
+        System.out.println("characteristicsList " + response.then().extract().body().as(Characteristics.class));
+
+        //      Characteristics characteristics = new Characteristics();
+//        //characteristics.withtDescription().withValue();
+//        for(Characteristics n: characteristicsList) {
+//
+//        }
+
+//        for(Characteristics characteristics : descriptionArray) {
+//            String desc = characteristics.getDescription();
+//        }
+
+        //UserLogin userLoginResponse = getBaseResponseForAuth(authorization).then().extract().body().as(UserLogin.class);
+
+        List<Characteristics> characteristicsList = new ArrayList<>();
+
+
+   for(int i=0; i< descriptionArray.size(); i++) {
+       System.out.println(descriptionArray.get(i));
+       Characteristics characteristics = new Characteristics().withDescription((String) descriptionArray.get(i));
+
+       characteristicsList.add(characteristics);
+   }
+
+   for(int i=0; i< valueArray.size(); i++) {
+       System.out.println(valueArray.get(i));
+       Characteristics characteristics = new Characteristics().withValue((String) valueArray.get(i).toString());
+
+       characteristicsList.add(characteristics);
+   }
+
+        System.out.println("characteristicsList :" +characteristicsList);
 
     }
 
