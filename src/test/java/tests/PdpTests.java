@@ -161,43 +161,14 @@ public class PdpTests extends TestBase {
     public void checkCharacteristics() {
         Response response = am.getApiPdpHelper().getPdpResponse();
         ArrayList descriptionArray = response.jsonPath().get("characteristics.description");
-        String description = (String) descriptionArray.get(0);
-        System.out.println("description: " + description);
-        System.out.println("descriptionArray : " + descriptionArray);
-
         ArrayList valueArray = response.jsonPath().get("characteristics.value");
-        ArrayList value1 =  (ArrayList) valueArray.get(4);
-        System.out.println("value1 : " + value1);
-        System.out.println("valueArray : " + valueArray);
-
-       response.then().extract().body().as(Characteristics.class);
-        System.out.println("characteristicsList " + response.then().extract().body().as(Characteristics.class));
-
-        //      Characteristics characteristics = new Characteristics();
-//        //characteristics.withtDescription().withValue();
-//        for(Characteristics n: characteristicsList) {
-//
-//        }
-
-//        for(Characteristics characteristics : descriptionArray) {
-//            String desc = characteristics.getDescription();
-//        }
-
-        //UserLogin userLoginResponse = getBaseResponseForAuth(authorization).then().extract().body().as(UserLogin.class);
 
         List<Characteristics> characteristicsList = new ArrayList<>();
 
-
-   for(int i=0; i< descriptionArray.size(); i++) {
-       System.out.println(descriptionArray.get(i));
-       Characteristics characteristics = new Characteristics().withDescription((String) descriptionArray.get(i));
-
-       characteristicsList.add(characteristics);
-   }
-
-   for(int i=0; i< valueArray.size(); i++) {
-       System.out.println(valueArray.get(i));
-       Characteristics characteristics = new Characteristics().withValue((String) valueArray.get(i).toString());
+   for(int i=0; i< 5; i++) {
+       Characteristics characteristics = new Characteristics()
+               .withDescription(descriptionArray.get(i).toString())
+               .withValue(valueArray.get(i).toString().replaceAll("[\\[\\]]",""));
 
        characteristicsList.add(characteristics);
    }
@@ -205,5 +176,6 @@ public class PdpTests extends TestBase {
         System.out.println("characteristicsList :" +characteristicsList);
 
     }
+
 
 }
