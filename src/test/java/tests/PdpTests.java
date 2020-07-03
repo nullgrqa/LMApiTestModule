@@ -1,7 +1,10 @@
 package tests;
 
 import io.restassured.response.Response;
+import model.AdditionalItemsAtPdp;
 import model.Characteristics;
+import model.NameCategoryAtPdp;
+import org.apache.commons.math3.analysis.function.Add;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Step;
 
@@ -163,17 +166,69 @@ public class PdpTests extends TestBase {
         ArrayList descriptionArray = response.jsonPath().get("characteristics.description");
         ArrayList valueArray = response.jsonPath().get("characteristics.value");
 
-        List<Characteristics> characteristicsList = new ArrayList<>();
+        List<Characteristics> characteristicsListFromResp = new ArrayList<>();
 
    for(int i=0; i< 5; i++) {
        Characteristics characteristics = new Characteristics()
                .withDescription(descriptionArray.get(i).toString())
                .withValue(valueArray.get(i).toString().replaceAll("[\\[\\]]",""));
 
-       characteristicsList.add(characteristics);
+       characteristicsListFromResp.add(characteristics);
    }
 
-        System.out.println("characteristicsList :" +characteristicsList);
+        System.out.println("characteristicsListFromResp :" +characteristicsListFromResp);
+
+    }
+
+    @Test
+    public void checkNameCategoryAtPdp() {
+        Response response = am.getApiPdpHelper().getPdpResponse();
+        ArrayList categoriesArray = response.jsonPath().get("categories.familyNames");
+        System.out.println("categoriesArray " + categoriesArray);
+
+        Set<NameCategoryAtPdp> nameCategoryAtPdpSet = new HashSet<>();
+
+        for(int i=0; i<categoriesArray.size();i++) {
+            NameCategoryAtPdp nameCategory = new NameCategoryAtPdp()
+                    .withNameCategory(categoriesArray.get(i).toString());
+
+            nameCategoryAtPdpSet.add(nameCategory);
+        }
+
+        System.out.println("nameCategoryAtPdpSet " + nameCategoryAtPdpSet);
+    }
+
+    @Test
+    public void checkAddtionalItemsAtPdp() {
+        Response response = am.getApiPdpHelper().getPdpResponse();
+        ArrayList itemsArrayName = response.jsonPath().get("complements.displayedName");
+        System.out.println("itemsArray :" +itemsArrayName);
+
+        ArrayList priceArray = response.jsonPath().get("complements.prices.price");
+
+
+        Set<AdditionalItemsAtPdp> itemsSetFromRes = new HashSet<>();
+
+        for (int i=0; i<itemsArrayName.size();i++) {
+            List<Integer> prices = (List<Integer>) priceArray.get(i);
+            System.out.println("prices: " + prices);
+            float priceMain =  (float) prices.get(0);
+            System.out.println("priceMain: " + priceMain);
+
+//        float priceMainFloat = (float) priceMain;
+//        System.out.println("priceMainFloat: " + priceMainFloat);
+            String priceMainString = String.format(Locale.FRANCE, "%.02f", priceMain);
+            System.out.println("priceMainString: " + priceMainString);
+
+            AdditionalItemsAtPdp currentItem = new AdditionalItemsAtPdp()
+                    .withName(itemsArrayName.get(i).toString())
+                    .withMainPrice(priceMainString);
+
+            //System.out.println("===currentItem === " + currentItem);
+
+            itemsSetFromRes.add(currentItem);
+        }
+        System.out.println("itemsSetFromRes :" + itemsSetFromRes);
 
     }
 
