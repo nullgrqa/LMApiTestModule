@@ -201,30 +201,41 @@ public class PdpTests extends TestBase {
     @Test
     public void checkAddtionalItemsAtPdp() {
         Response response = am.getApiPdpHelper().getPdpResponse();
-        ArrayList itemsArrayName = response.jsonPath().get("complements.displayedName");
-        System.out.println("itemsArray :" +itemsArrayName);
+        ArrayList itemsNameArray = response.jsonPath().get("complements.displayedName");
+//        System.out.println("itemsArray :" +itemsNameArray);
 
         ArrayList priceArray = response.jsonPath().get("complements.prices.price");
+        ArrayList uomArray = response.jsonPath().get("complements.prices.uom");
+        ArrayList currencyArray = response.jsonPath().get("complements.prices.currency");
+
+//        System.out.println("uomArray: " + uomArray);
 
 
         Set<AdditionalItemsAtPdp> itemsSetFromRes = new HashSet<>();
 
-        for (int i=0; i<itemsArrayName.size();i++) {
+        for (int i=0; i<itemsNameArray.size();i++) {
             List<Integer> prices = (List<Integer>) priceArray.get(i);
-            System.out.println("prices: " + prices);
+            List<String> uoms = (List<String >) uomArray.get(i);
+            List<String> currencies = (List<String >) currencyArray.get(i);
+//            System.out.println("prices: " + prices);
             float priceMain =  (float) prices.get(0);
-            System.out.println("priceMain: " + priceMain);
+            String uomMain = uoms.get(0);
+            String currencyMain = currencies.get(0);
+//            System.out.println("priceMain: " + priceMain);
+//            System.out.println("uomMain: " + uomMain);
+//            System.out.println("currencyMain: " + currencyMain);
 
-//        float priceMainFloat = (float) priceMain;
-//        System.out.println("priceMainFloat: " + priceMainFloat);
+            String priceMainTogether = priceMain + " " + currencyMain  + "/" + uomMain;
+//            System.out.println("priceMainTogether: " + priceMainTogether);
+
             String priceMainString = String.format(Locale.FRANCE, "%.02f", priceMain);
-            System.out.println("priceMainString: " + priceMainString);
+//            System.out.println("priceMainString: " + priceMainString);
 
             AdditionalItemsAtPdp currentItem = new AdditionalItemsAtPdp()
-                    .withName(itemsArrayName.get(i).toString())
-                    .withMainPrice(priceMainString);
+                    .withName(itemsNameArray.get(i).toString())
+                    .withMainPrice(priceMainTogether);
 
-            //System.out.println("===currentItem === " + currentItem);
+//            System.out.println("===currentItem === " + currentItem);
 
             itemsSetFromRes.add(currentItem);
         }
