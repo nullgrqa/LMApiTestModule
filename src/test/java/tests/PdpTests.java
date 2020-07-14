@@ -8,6 +8,7 @@ import org.apache.commons.math3.analysis.function.Add;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Step;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -199,7 +200,7 @@ public class PdpTests extends TestBase {
     }
 
     @Test
-    public void checkAddtionalItemsAtPdp() {
+    public void checkAdditionalItemsAtPdp() {
         Response response = am.getApiPdpHelper().getPdpResponse();
         ArrayList itemsNameArray = response.jsonPath().get("complements.displayedName");
 //        System.out.println("itemsArray :" +itemsNameArray);
@@ -225,11 +226,11 @@ public class PdpTests extends TestBase {
 //            System.out.println("uomMain: " + uomMain);
 //            System.out.println("currencyMain: " + currencyMain);
 
-            String priceMainTogether = priceMain + " " + currencyMain  + "/" + uomMain;
-//            System.out.println("priceMainTogether: " + priceMainTogether);
-
             String priceMainString = String.format(Locale.FRANCE, "%.02f", priceMain);
 //            System.out.println("priceMainString: " + priceMainString);
+
+            String priceMainTogether = priceMainString + "" + currencyMain  + "/" + uomMain;
+//            System.out.println("priceMainTogether: " + priceMainTogether);
 
             AdditionalItemsAtPdp currentItem = new AdditionalItemsAtPdp()
                     .withName(itemsNameArray.get(i).toString())
@@ -241,6 +242,16 @@ public class PdpTests extends TestBase {
         }
         System.out.println("itemsSetFromRes :" + itemsSetFromRes);
 
+    }
+
+    @Test
+    public void ttt() throws IOException, org.json.simple.parser.ParseException {
+
+        String mainPriceFromResponse = am.getApiPdpHelper()
+                .getMainPrice("src/test/mockFiles/getPdp_10073940_Mock.json");
+
+        String secondPriceFromResponse = am.getApiPdpHelper()
+                .getSecondPrice("src/test/mockFiles/getPdp_10073940_Mock.json");
     }
 
 
