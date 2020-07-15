@@ -15,8 +15,8 @@
     "homeDelivery": true,
     "storeDelivery": true,
     "availability": true,
-    "deliveryNearestDate": "2020-07-13T08:00:00+03:00",
-    "pickupNearestDate": "2020-07-12T15:59:00+03:00"
+    "deliveryNearestDate": "2020-07-17T08:00:00+03:00",
+    "pickupNearestDate": "2020-07-18T15:59:00+03:00"
   },
   "weight": {
     "value": 30,
