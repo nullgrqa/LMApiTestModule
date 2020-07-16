@@ -5,6 +5,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import model.Characteristics;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -21,6 +22,7 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import static io.restassured.RestAssured.given;
@@ -181,5 +183,33 @@ public class ApiPdpHelper {
         System.out.println(together);
 
         return together;
+    }
+
+    public List<Characteristics> getShortCharacteristics(String pathToFile) throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject  object= (JSONObject) parser.
+                parse(new FileReader(pathToFile));
+
+        JSONArray characteristicsArray = (JSONArray) object.get("characteristics");
+
+        List<Characteristics> characteristicsListFromResp = new ArrayList<>();
+
+        for(int i=0; i< 5; i++) {
+            JSONObject characteristic = (JSONObject) characteristicsArray.get(i);
+//            System.out.println("characteristic : " + characteristic);
+            Characteristics characteristics = new Characteristics()
+                    .withDescription(characteristic.get("description").toString())
+                    .withValue(characteristic.get("value").toString()
+                            .replaceAll("[\\[\\]]","")
+                            .replaceAll("[\"]","")
+                            .replace(", ",","));
+
+            characteristicsListFromResp.add(characteristics);
+        }
+
+        System.out.println("characteristicsListFromResp :" +characteristicsListFromResp);
+
+        return characteristicsListFromResp;
+
     }
 }

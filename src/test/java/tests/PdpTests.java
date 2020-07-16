@@ -246,15 +246,18 @@ public class PdpTests extends TestBase {
 
     @Test
     public void ttt() throws IOException, org.json.simple.parser.ParseException, ParseException {
+//
+//        String mainPriceFromResponse = am.getApiPdpHelper()
+//                .getMainPrice("src/test/mockFiles/getPdp_10073940_Mock.json");
+//
+//        String secondPriceFromResponse = am.getApiPdpHelper()
+//                .getSecondPrice("src/test/mockFiles/getPdp_10073940_Mock.json");
+//
+//        String nearestDeliveryDateFromResp = am.getApiPdpHelper()
+//                .getNearestDeliveryDate("src/test/mockFiles/getPdp_10073940_Mock.json");
 
-        String mainPriceFromResponse = am.getApiPdpHelper()
-                .getMainPrice("src/test/mockFiles/getPdp_10073940_Mock.json");
-
-        String secondPriceFromResponse = am.getApiPdpHelper()
-                .getSecondPrice("src/test/mockFiles/getPdp_10073940_Mock.json");
-
-        String nearestDeliveryDateFromResp = am.getApiPdpHelper()
-                .getNearestDeliveryDate("src/test/mockFiles/getPdp_10073940_Mock.json");
+        List<Characteristics> shortCharacteristicsFromResp = am.getApiPdpHelper()
+                .getShortCharacteristics("src/test/mockFiles/getPdp_10073940_Mock.json");
     }
 
 
