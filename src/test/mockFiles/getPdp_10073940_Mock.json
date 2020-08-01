@@ -15,8 +15,8 @@
     "homeDelivery": true,
     "storeDelivery": true,
     "availability": true,
-    "deliveryNearestDate": "2020-07-17T08:00:00+03:00",
-    "pickupNearestDate": "2020-07-18T15:59:00+03:00"
+    "deliveryNearestDate": "2020-07-19T08:00:00+03:00",
+    "pickupNearestDate": "2020-07-20T15:59:00+03:00"
   },
   "weight": {
     "value": 30,
@@ -128,7 +128,7 @@
     "familyIds": "08fc2630-6e90-11ea-aded-ff77be911286_Opus_Family",
     "main": false
   }, {
-    "familyNames": "Выравнивание стен сухими смесями",
+    "familyNames": "Выравнивание стен смесями",
     "familyIds": "11ad7db0-6e90-11ea-aded-ff77be911286_Opus_Family",
     "main": false
   }, {
@@ -139,62 +139,135 @@
     "familyNames": "Всё для ремонта",
     "familyIds": "508aeee0-67fd-11e9-8695-d5503176ea61_Opus_Family",
     "main": false
-  }, {
-    "familyNames": "Штукатурка для стен",
-    "familyIds": "6230d7a0-09ff-11ea-b2b5-f7a4d0b1ac93_Opus_Family",
-    "main": false
-  }, {
-    "familyNames": "Штукатурки гипсовые",
-    "familyIds": "63688ee0-cb36-11e9-a6ac-25aa495aa562_Opus_Family",
-    "main": false
-  }, {
-    "familyNames": "Стройматериалы",
-    "familyIds": "735f0f80-4981-11ea-9e76-ef66c83887c3_Opus_Family",
-    "main": false
-  }, {
-    "familyNames": "Товары для чернового ремонта",
-    "familyIds": "7a7053b0-27e4-11ea-ab4a-23319b873b6a_Opus_Family",
-    "main": false
-  }, {
-    "familyNames": "Knauf Rotband",
-    "familyIds": "88f18fe0-c0fe-11ea-957a-9fd436135f60_Opus_Family",
-    "main": false
-  }, {
-    "familyNames": "Материалы для строительных работ",
-    "familyIds": "9cb93990-548c-11e9-9a74-edbe5e96b038_Opus_Family",
-    "main": false
-  }, {
-    "familyNames": "Внутренняя штукатурка",
-    "familyIds": "b7d2f360-09fe-11ea-b2b5-f7a4d0b1ac93_Opus_Family",
-    "main": false
-  }, {
-    "familyNames": "Подготовка стен к ремонту",
-    "familyIds": "bf2677ad-df4d-43d4-8463-fed407eead76_Opus_Family",
-    "main": false
-  }, {
-    "familyNames": "Топ товаров",
-    "familyIds": "d43cb740-b46b-11e9-92b4-f1cb18478361_Opus_Family",
-    "main": false
-  }, {
-    "familyNames": "Штукатурки для внутренних работ",
-    "familyIds": "dc8b1620-09fd-11ea-b2b5-f7a4d0b1ac93_Opus_Family",
-    "main": false
-  }, {
-    "familyNames": "Parent",
-    "familyIds": "ee8ba3d0-27ee-11ea-ab4a-23319b873b6a_Opus_Family",
-    "main": false
-  }, {
-    "familyNames": "Штукатурки ротбанд",
-    "familyIds": "ef65f4e0-53f9-11ea-ad81-af309490eba8_Opus_Family",
-    "main": false
-  }, {
-    "familyNames": "Сухие смеси и грунтовки",
-    "familyIds": "f02ff350-497f-11ea-9e76-ef66c83887c3_Opus_Family",
-    "main": false
   }],
   "url": "https://leroymerlin.ru/product/shtukaturka-gipsovaya-knauf-rotband-30-kg-10073940",
   "path": "shtukaturka-gipsovaya-knauf-rotband-30-kg-10073940",
-  "complements": [],
+  "complements": [{
+    "articul": 923550,
+    "prices": [{
+      "price": 292,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }, {
+      "price": 29.2,
+      "uom": "л",
+      "currency": "₽",
+      "main": false
+    }],
+    "displayedName": "Грунт для отделки строительными смесями, для сухих помещений, 10 л",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/923550.jpg",
+    "rating": 3.7
+  }, {
+    "articul": 11816937,
+    "prices": [{
+      "price": 8.5,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }],
+    "displayedName": "Перчатки хлопчатобумажные с ПВХ",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/11816937.jpg",
+    "rating": 4.3
+  }, {
+    "articul": 12756884,
+    "prices": [{
+      "price": 723,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }, {
+      "price": 72.3,
+      "uom": "л",
+      "currency": "₽",
+      "main": false
+    }],
+    "displayedName": "Грунт Knauf Тифенгрунд 10 л",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/12756884.jpg",
+    "rating": 4.8
+  }, {
+    "articul": 13068784,
+    "prices": [{
+      "price": 265,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }],
+    "displayedName": "Правило алюминиевое Трапеция Сибртех 2 м, 2 ребра жесткости",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/13068784.jpg",
+    "rating": 3.9
+  }, {
+    "articul": 13105514,
+    "prices": [{
+      "price": 150,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }],
+    "displayedName": "Насадка электромиксера Сибртех 400х60 мм, оцинкованная сталь",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/13105514.jpg",
+    "rating": 4.7
+  }, {
+    "articul": 13175272,
+    "prices": [{
+      "price": 638,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }, {
+      "price": 63.8,
+      "uom": "м²",
+      "currency": "₽",
+      "main": false
+    }],
+    "displayedName": "Сетка металлическая оцинкованная Штрек 10х0.7х0.3 мм, 1x10 м",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/13175272.jpg",
+    "rating": 2
+  }, {
+    "articul": 13323335,
+    "prices": [{
+      "price": 1553,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }],
+    "displayedName": "Правило алюминиевое с уровнем Matrix 2.5 м, 2 ручки",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/13323335.jpg",
+    "rating": 3.2
+  }, {
+    "articul": 13697230,
+    "prices": [{
+      "price": 3633,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }],
+    "displayedName": "Уровень Kapro Genesis 2000 мм с двумя глазками",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/13697230.jpg",
+    "rating": 5
+  }, {
+    "articul": 14132012,
+    "prices": [{
+      "price": 88,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }],
+    "displayedName": "Шпатель фасадный 300 мм",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/14132012.jpg",
+    "rating": 4.2
+  }, {
+    "articul": 14609301,
+    "prices": [{
+      "price": 63,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }],
+    "displayedName": "Мешки для мусора 55x95 см, 10 шт.",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/14609301.jpg",
+    "rating": 4
+  }],
   "substitutes": [{
     "articul": 11313264,
     "prices": [{

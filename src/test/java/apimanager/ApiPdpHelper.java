@@ -5,7 +5,10 @@ import io.restassured.RestAssured;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import model.AdditionalItemsAtPdp;
 import model.Characteristics;
+import model.User;
+import model.UserReply;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -20,10 +23,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 import static io.restassured.RestAssured.given;
 
@@ -211,5 +211,151 @@ public class ApiPdpHelper {
 
         return characteristicsListFromResp;
 
+    }
+
+    public Set<AdditionalItemsAtPdp> getAdditionalItemsR(String pathToFile) throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject  object = (JSONObject) parser.
+                parse(new FileReader(pathToFile));
+
+        JSONArray complementsArray = (JSONArray) object.get("complements");
+        System.out.println("complementsArray :" + complementsArray);
+
+        Set<AdditionalItemsAtPdp> itemsSetFromRes = new HashSet<>();
+
+        for (int i=0; i<complementsArray.size();i++) {
+
+            JSONObject complement = (JSONObject) complementsArray.get(i);
+            String itemName = complement.get("displayedName").toString();
+
+            JSONArray pricesArray = (JSONArray) complement.get("prices");
+            JSONObject prices = (JSONObject) pricesArray.get(0);
+
+            float mainPrice = Float.parseFloat(prices.get("price").toString());
+            String mainUom = prices.get("uom").toString();
+            String maincurrency = prices.get("currency").toString();
+
+            String priceMainString = String.format(Locale.FRANCE, "%.02f", mainPrice);
+
+            String priceMainTogether = priceMainString + "" + maincurrency  + "/" + mainUom;
+
+            AdditionalItemsAtPdp currentItem = new AdditionalItemsAtPdp()
+                    .withName(itemName)
+                    .withMainPrice(priceMainTogether);
+
+            itemsSetFromRes.add(currentItem);
+        }
+        System.out.println("itemsSetFromRes :" + itemsSetFromRes);
+        return itemsSetFromRes;
+
+    }
+
+    public String getQntOfDeliveryStock(String pathToFile) throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject  object = (JSONObject) parser.
+                parse(new FileReader(pathToFile));
+
+        String qntFromResponse = object.get("deliveryStock").toString();
+        System.out.println("qntFromResponse : " + qntFromResponse);
+
+        return qntFromResponse;
+    }
+
+    public String getStoresAtPickupBlock(String pathToFile) throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject object = (JSONObject) parser.parse(new FileReader(pathToFile));
+
+        String qntStores = object.get("pickupStoresCount").toString();
+
+        return qntStores;
+    }
+
+    public String getQntComments(String pathToFile) throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject  object = (JSONObject) parser.
+                parse(new FileReader(pathToFile));
+
+        JSONObject metaObj = (JSONObject) object.get("meta");
+        String qntComments = metaObj.get("total_count").toString();
+        System.out.println("qntComments : " + qntComments);
+        return qntComments;
+    }
+
+    public UserReply getUserRely(String pathToFile) throws IOException, ParseException, java.text.ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject  object = (JSONObject) parser.
+                parse(new FileReader(pathToFile));
+
+        JSONArray data = (JSONArray) object.get("data");
+        JSONObject data_0 = (JSONObject) data.get(0);
+//        System.out.println("data_0 : " + data_0);
+
+        JSONObject attributes = (JSONObject) data_0.get("attributes");
+
+        String rating = attributes.get("rating").toString();
+//        System.out.println("rating : " + rating);
+
+        String body = attributes.get("body").toString();
+//        System.out.println("body : " + body);
+
+        String pros = attributes.get("pros").toString();
+//        System.out.println("pros : " + pros);
+
+        String cons = attributes.get("cons").toString();
+//        System.out.println("cons : " + cons);
+
+        String created_at = attributes.get("created_at").toString();
+//        System.out.println("created_at : " + created_at);
+        String dateWithoutT = created_at.split("T", 2)[0];
+//        System.out.println("dateWithoutT: " + dateWithoutT);
+
+        SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateValue = new SimpleDateFormat("yyyy-MM-dd").parse(dateWithoutT);
+
+        String dateOfWeek = new SimpleDateFormat("EEEE", new Locale("ru")).format(dateValue);
+        String dateOfWeekUpper = dateOfWeek.substring(0, 1).toUpperCase() + dateOfWeek.substring(1);
+        String dateRusAll =
+                DateFormat.getDateInstance(SimpleDateFormat.LONG, new Locale("ru")).format(dateValue);
+//        System.out.println("dateRusAll : " + dateRusAll);
+
+        String dateRus1Part = dateRusAll.split(" ", 3)[0];
+        String dateRus2Part = dateRusAll.split(" ", 3)[1];
+
+        String together_date = dateRus1Part + " " +  dateRus2Part;
+//        System.out.println("together_date : " + together_date);
+
+        String author_name = attributes.get("author_name").toString();
+//        System.out.println("author_name : " + author_name);
+
+        Boolean recommended = (Boolean) attributes.get("recommended");
+//        System.out.println("recommended : " + recommended);
+
+        String location_name = attributes.get("location_name").toString();
+//        System.out.println("location_name : " + location_name);
+
+        JSONArray author_details = (JSONArray) attributes.get("author_details");
+        JSONObject author_details_0 = (JSONObject) author_details.get(0);
+
+        String label = author_details_0.get("label").toString();
+//        System.out.println("label : " + label);
+
+        String value = author_details_0.get("value").toString();
+//        System.out.println("value : " + value);
+
+        String usage = label + ": " + value;
+
+        UserReply userReplyFromResp = new UserReply()
+                .withAuthor_name(author_name)
+                .withCreated_at(together_date)
+                .withLocation_name(location_name)
+                .withValue(usage)
+                .withBody(body)
+                .withPros(pros)
+                .withCons(cons)
+                .withRecommended(recommended);
+
+        System.out.println("userReplyFromResp : " + userReplyFromResp);
+
+        return userReplyFromResp;
     }
 }

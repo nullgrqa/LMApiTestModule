@@ -1,0 +1,151 @@
+{
+    "data": [{
+        "id": "5ef09edf74c1bd000f15fdf3",
+        "type": "reviews",
+        "attributes": {
+            "context_type": "product",
+            "external_id": null,
+            "rating": 5.0,
+            "body": "Все материалы от этого производителя, можно покупать и даже не думать о проблемах. Рекомендую всем к покупке!",
+            "pros": "Производитель делает все качественно",
+            "cons": "Нет",
+            "rating_details": [{
+                "_id": "5ef09edf74c1bd000f15fdf4",
+                "label": "Цена",
+                "name": "price",
+                "value": 5.0
+            }, {
+                "_id": "5ef09edf74c1bd000f15fdf5",
+                "label": "Качество",
+                "name": "quality",
+                "value": 5.0
+            }],
+            "author_details": [{
+                "_id": "5ef09edf74c1bd000f15fdf6",
+                "label": "Срок использования",
+                "name": "time_usage",
+                "value": "Больше года"
+            }, {
+                "_id": "5ef09edf74c1bd000f15fdf7",
+                "label": "Магазин",
+                "name": "shop",
+                "value": "Леруа Мерлен Алтуфьево"
+            }],
+            "created_at": "2020-06-22T15:06:55.392+03:00",
+            "updated_at": "2020-06-23T17:27:35.852+03:00",
+            "published_at": "2020-06-23T17:27:35.852+03:00",
+            "imported_at": "2020-06-22T15:06:55.335+03:00",
+            "author_name": "Алексей",
+            "author_email": "kirill1989@ya.ru",
+            "origin": "omnibox",
+            "syndication_source": null,
+            "state": "published",
+            "product_id": "10073940",
+            "photos": [],
+            "tags": ["СветаиЛеша", "АлексейШамов", "Ecom"],
+            "recommended": true,
+            "custom_attributes": {
+                "product_available_34": true,
+                "product_available_504": false,
+                "product_available_505": false,
+                "product_available_506": false,
+                "product_available_507": false,
+                "product_available_508": false,
+                "product_available_509": false,
+                "product_available_510": false,
+                "product_available_511": false,
+                "product_available_539": false,
+                "product_available_715": false,
+                "product_available_716": false,
+                "product_available_1437": false,
+                "product_available_1443": false,
+                "product_available_1447": false,
+                "product_available_1448": false,
+                "product_available_2149": false,
+                "product_available_2389": false,
+                "product_available_2393": false,
+                "product_available_2397": false,
+                "product_available_2949": false,
+                "product_available_3257": false,
+                "product_available_3258": false,
+                "product_available_3372": false,
+                "product_available_3399": false,
+                "product_available_3402": false,
+                "product_available_3428": false,
+                "product_available_3429": false,
+                "product_available_3439": false,
+                "product_available_3752": false,
+                "product_available_4124": false,
+                "product_available_4794": false,
+                "product_available_5057": false,
+                "product_available_5342": false,
+                "product_available_5343": false,
+                "product_available_6048": false,
+                "product_available_6062": false,
+                "product_available_6063": false,
+                "product_available_6255": false,
+                "product_available_6349": false,
+                "product_available_6395": false,
+                "product_available_6516": false,
+                "product_available_6466": false,
+                "product_available_6607": false,
+                "product_available_6609": false,
+                "product_available_7011": false,
+                "product_platform": "Ecom",
+                "product_available_7073": false,
+                "product_available_7138": false,
+                "product_available_7596": false,
+                "product_available_7803": false,
+                "product_available_7278": false,
+                "product_available_6725": false,
+                "product_available_7874": false
+            },
+            "location_name": "Москва",
+            "likes": 0,
+            "dislikes": 0,
+            "helpfulness": 4,
+            "order_number": null,
+            "custom_source": null,
+            "custom_medium": null,
+            "custom_campaign": null,
+            "verified": false
+        },
+        "relationships": {
+            "author": {
+                "data": {
+                    "id": "5ef09e8b74c1bd000f15fdee",
+                    "type": "consumers"
+                }
+            },
+            "product": {
+                "data": {
+                    "id": "572c6100fac9895b38006f52",
+                    "type": "products"
+                }
+            },
+            "comments": {
+                "data": []
+            },
+            "state_changes": {
+                "data": [{
+                    "id": "5ef21157ad1656001037122c",
+                    "type": "state_changes"
+                }]
+            }
+        }
+    }],
+    "links": {
+        "self": "https://api.shoppilot.ru/platform/v4/reviews?filter=state%3Aeq%3Apublished%2Cproduct_id%3Aeq%3A10073940\u0026include=comments\u0026page=1\u0026per_page=1\u0026sort=created_at%3Adesc",
+        "first": "https://api.shoppilot.ru/platform/v4/reviews?filter=state%3Aeq%3Apublished%2Cproduct_id%3Aeq%3A10073940\u0026include=comments\u0026page=1\u0026per_page=1\u0026sort=created_at%3Adesc",
+        "prev": null,
+        "next": "https://api.shoppilot.ru/platform/v4/reviews?filter=state%3Aeq%3Apublished%2Cproduct_id%3Aeq%3A10073940\u0026include=comments\u0026page=2\u0026per_page=1\u0026sort=created_at%3Adesc",
+        "last": "https://api.shoppilot.ru/platform/v4/reviews?filter=state%3Aeq%3Apublished%2Cproduct_id%3Aeq%3A10073940\u0026include=comments\u0026page=224\u0026per_page=1\u0026sort=created_at%3Adesc"
+    },
+    "meta": {
+        "current_page": 1,
+        "next_page": 2,
+        "prev_page": null,
+        "total_pages": 224,
+        "total_count": 224
+    }
+}

@@ -4,6 +4,7 @@ import io.restassured.response.Response;
 import model.AdditionalItemsAtPdp;
 import model.Characteristics;
 import model.NameCategoryAtPdp;
+import model.UserReply;
 import org.apache.commons.math3.analysis.function.Add;
 import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Step;
@@ -256,8 +257,25 @@ public class PdpTests extends TestBase {
 //        String nearestDeliveryDateFromResp = am.getApiPdpHelper()
 //                .getNearestDeliveryDate("src/test/mockFiles/getPdp_10073940_Mock.json");
 
-        List<Characteristics> shortCharacteristicsFromResp = am.getApiPdpHelper()
-                .getShortCharacteristics("src/test/mockFiles/getPdp_10073940_Mock.json");
+//        List<Characteristics> shortCharacteristicsFromResp = am.getApiPdpHelper()
+//                .getShortCharacteristics("src/test/mockFiles/getPdp_10073940_Mock.json");
+
+//        Set<AdditionalItemsAtPdp> additionalItemsFromResp = am.getApiPdpHelper()
+//                .getAdditionalItemsR("src/test/mockFiles/getPdp_10073940_Mock.json");
+//        System.out.println("additionalItemsFromResp.size() : " + additionalItemsFromResp.size());
+
+//        String  qntFromDeliveryStock = am.getApiPdpHelper()
+//                .getQntOfDeliveryStock("src/test/mockFiles/getPdp_10073940_Mock.json");
+
+//        String  qntFromDeliveryStock = am.getApiPdpHelper()
+//                .getStoresAtPickupBlock("src/test/mockFiles/getPdp_10073940_Mock.json");
+//        System.out.println(qntFromDeliveryStock);
+
+//        String antComments = am.getApiPdpHelper()
+//                .getQntComments("src/test/mockFiles/comments_first_page_art_10073940.json");
+
+        UserReply userReply = am.getApiPdpHelper()
+                .getUserRely("src/test/mockFiles/comments_first_page_art_10073940.json");
     }
 
 
