@@ -5,10 +5,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import model.AdditionalItemsAtPdp;
-import model.Characteristics;
-import model.User;
-import model.UserReply;
+import model.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -25,6 +22,7 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static io.restassured.RestAssured.form;
 import static io.restassured.RestAssured.given;
 
 public class ApiPdpHelper {
@@ -357,5 +355,88 @@ public class ApiPdpHelper {
         System.out.println("userReplyFromResp : " + userReplyFromResp);
 
         return userReplyFromResp;
+    }
+
+    public Set<StoresAtPdp> getStores(String pathToPdp, String pathToStores) throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject  object = (JSONObject) parser.
+                parse(new FileReader(pathToPdp));
+
+        HashSet<StoresAtPdp> storesAtPdps = new HashSet<>();
+
+        JSONArray pricesArray = (JSONArray) object.get("prices");
+        JSONObject priceMainObject = (JSONObject) pricesArray.get(0);
+        String mainUom =  priceMainObject.get("uom").toString();
+
+        List<StoresAtPdp> list_1  = new ArrayList<>();
+
+        JSONArray stores = (JSONArray) object.get("stores");
+        for(int i=0;i<stores.size();i++) {
+            JSONObject storeObject = (JSONObject) stores.get(i);
+            int storeId = Integer.parseInt(storeObject.get("storeId").toString());
+            String stock = storeObject.get("stock").toString();
+            String stockFormated = "В наличии " + stock + " "+ mainUom;
+            String name = storeObject.get("name").toString();
+
+            StoresAtPdp firstPart = new StoresAtPdp()
+                    .withStoreId(storeId)
+                    .withQntAtStock(stockFormated)
+                    .withNameStore(name);
+
+            list_1.add(firstPart);
+        }
+
+        System.out.println("list_1.size() " + list_1.size());
+        System.out.println("list_1 : " + list_1);
+
+        JSONParser parser_2 = new JSONParser();
+        JSONObject  object_2 = (JSONObject) parser_2.
+                parse(new FileReader(pathToStores));
+
+        List<StoresAtPdp> list_2  = new ArrayList<>();
+
+        JSONArray stores_2 = (JSONArray) object_2.get("stores");
+        for(int m=0;m<stores_2.size();m++) {
+            JSONObject storeObject_2 = (JSONObject) stores_2.get(m);
+            int storeId = Integer.parseInt(storeObject_2.get("storeId").toString());
+            //System.out.println();
+            String address = storeObject_2.get("address").toString();
+            String operationalTime = storeObject_2.get("operationalTime").toString();
+
+            StoresAtPdp secondPart = new StoresAtPdp()
+                    .withStoreId(storeId)
+                    .withAddress(address)
+                    .withWorkTime(operationalTime);
+
+            list_2.add(secondPart);
+        }
+
+        System.out.println("list_2.size() : " + list_2.size());
+        System.out.println("list_2 : " + list_2);
+
+        int z=0;
+        do {
+            for (int k = 0; k < list_2.size(); k++) {
+                if (list_1.get(z).getStoreId() == list_2.get(k).getStoreId()) {
+
+                    StoresAtPdp obj_3 = new StoresAtPdp()
+                            .withStoreId(list_1.get(z).getStoreId())
+                            .withNameStore(list_1.get(z).getNameStore())
+                            .withAddress(list_2.get(k).getAddress())
+                            .withQntAtStock(list_1.get(z).getQntAtStock())
+                            .withWorkTime(list_2.get(k).getWorkTime());
+                    //System.out.println("obj_3: " + obj_3);
+
+                    storesAtPdps.add(obj_3);
+                }
+            }
+            z++;
+        } while (z<list_1.size());
+
+        System.out.println(storesAtPdps.size());
+
+        System.out.println("storesAtPdps: " + storesAtPdps );
+
+        return storesAtPdps;
     }
 }

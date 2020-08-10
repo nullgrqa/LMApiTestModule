@@ -1,21 +1,18 @@
 package tests;
 
 import io.restassured.response.Response;
-import model.AdditionalItemsAtPdp;
-import model.Characteristics;
-import model.NameCategoryAtPdp;
-import model.UserReply;
-import org.apache.commons.math3.analysis.function.Add;
+import model.*;
+import org.apache.commons.collections4.ListUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.testng.annotations.Test;
-import ru.yandex.qatools.allure.annotations.Step;
 
 import java.io.IOException;
-import java.io.PrintStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -274,8 +271,57 @@ public class PdpTests extends TestBase {
 //        String antComments = am.getApiPdpHelper()
 //                .getQntComments("src/test/mockFiles/comments_first_page_art_10073940.json");
 
-        UserReply userReply = am.getApiPdpHelper()
-                .getUserRely("src/test/mockFiles/comments_first_page_art_10073940.json");
+//        UserReply userReply = am.getApiPdpHelper()
+//                .getUserRely("src/test/mockFiles/comments_first_page_art_10073940.json");
+
+        Set<StoresAtPdp> storesFromResp = am.getApiPdpHelper()
+                .getStores("src/test/mockFiles/getPdp_10073940_Mock.json",
+                        "src/test/mockFiles/Stores.json");
+    }
+
+    @Test
+    public void testLists() {
+        List<Sample_1> list_1 = new ArrayList<>();
+        Sample_1 obj_1_1 = new Sample_1().withId(1).withName("name_1");
+        Sample_1 obj_1_2 = new Sample_1().withId(2).withName("name_2");
+        Sample_1 obj_1_3 = new Sample_1().withId(4).withName("name_3");
+        list_1.add(obj_1_1);
+        list_1.add(obj_1_2);
+        list_1.add(obj_1_3);
+
+        System.out.println(list_1);
+
+        List<Sample_2> list_2 = new ArrayList<>();
+        Sample_2 obj_2_1 = new Sample_2().withId(1).withDescribe("describe_1");
+        Sample_2 obj_2_2 = new Sample_2().withId(2).withDescribe("describe_2");
+        Sample_2 obj_2_3 = new Sample_2().withId(3).withDescribe("describe_3");
+        list_2.add(obj_2_1);
+        list_2.add(obj_2_2);
+        list_2.add(obj_2_3);
+
+        System.out.println(list_2);
+
+        List<Sample_3> list_3 = new ArrayList<>();
+
+
+        int z=0;
+        do {
+            for (int i = 0; i < list_2.size(); i++) {
+                if (list_1.get(z).getId() == list_2.get(i).getId()) {
+
+                    Sample_3 obj_3 = new Sample_3()
+                            .withId(list_2.get(i).getId())
+                            .withName(list_1.get(z).getName())
+                            .withDescribe(list_2.get(i).getDescribe());
+                    System.out.println("obj_3: " + obj_3);
+
+                    list_3.add(obj_3);
+                }
+            }
+            z++;
+        } while (z<list_1.size());
+
+        System.out.println("list_3 : " + list_3);
     }
 
 
