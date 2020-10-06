@@ -218,5 +218,16 @@ public class UserLoginTests extends TestBase {
         s.assertAll();
     }
 
+    @Test
+    public void loginAndDeleteBasketAtBackEnd() {
+        String email = "qwe@gmail.com";
+        String password = "qwertyU1";
+        AuthData = email + ":"+ password;
+        authorization = Base64.getEncoder().encodeToString(AuthData.getBytes());
+        String accessToken = am.getApiLoginHelper().getAccessToken(authorization);
+
+        am.getApiBasketHelper().getResponseForBasketDelete(accessToken);
+    }
+
 
 }

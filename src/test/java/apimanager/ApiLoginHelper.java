@@ -92,4 +92,12 @@ public class ApiLoginHelper {
         return errorResponse;
     }
 
+    public String getAccessToken(String authorization) {
+        Response response = getBaseResponseForAuth(authorization);
+        JsonPath jsonPath = response.jsonPath();
+        String accessToken = jsonPath.get("access-token");
+        System.out.println(accessToken);
+        return accessToken;
+    }
+
 }

@@ -6,13 +6,16 @@ import org.apache.commons.collections4.ListUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.testng.annotations.Test;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.apache.commons.io.FileUtils;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -322,6 +325,27 @@ public class PdpTests extends TestBase {
         } while (z<list_1.size());
 
         System.out.println("list_3 : " + list_3);
+    }
+
+
+    @Test
+    public void rewriteFile() throws IOException {
+//Create some files here
+        File sourceFile = new File("src/test/mockFiles/test_1.json");
+        File fileToCopy = new File("src/test/mockFiles/test_2.json");
+        File core = new File("src/test/mockFiles/test_core.json");
+
+        FileUtils.copyFile(sourceFile, core);
+
+        String sourceString = FileUtils.readFileToString(sourceFile, StandardCharsets.UTF_8);
+
+        String second = sourceString.replaceAll("111111", "zzzzz");
+
+        FileUtils.writeStringToFile(sourceFile, second);
+
+       // FileUtils.copyFile(second_file, fileToCopy);
+//        String absolutePath = sourceFile.getAbsolutePath();
+//        System.out.println("absolutePath: " + absolutePath);
     }
 
 
