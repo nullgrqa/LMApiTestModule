@@ -1,0 +1,462 @@
+{
+  "articul": 10073940,
+  "displayedName": "Штукатурка гипсовая Knauf Ротбанд 30 кг",
+  "sellingScheme": "GENERAL",
+  "productPriceCategory": "STD",
+  "marketingDescription": "Штукатурка Кнауф Ротбанд (30 кг) – это универсальная гипсовая штукатурная смесь для ручной отделки потолков и стен. Подходит практически для любого основания: бетон, пенополистирол, кирпич, цементная штукатурка. Штукатурка Кнауф Ротбанд предназначена для внутренних работ в помещениях с нормальным уровнем влажности, а также в ванных и кухнях.\n\nПреимущества:\n\n- небольшой расход смеси – 8,5 кг на 1 м2 (для слоя толщиной 1 см);\n- можно нанести слоем любой толщины от 5 мм до 5 см;\n- готовый раствор остаётся жизнеспособным в течение 25 минут.",
+  "mediaMainPhoto": {
+    "url_small": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/10073940.jpg",
+    "url_full": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_800,h_800,c_pad,b_white/LMCode/10073940.jpg"
+  },
+  "mediaOtherPhoto": ["https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_800,h_800,c_pad,b_white/LMCode/10073940_01.jpg", "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_800,h_800,c_pad,b_white/LMCode/10073940_03.jpg"],
+  "mediaInteriorPhoto": null,
+  "mediaDrwPhoto": null,
+  "eligibility": {
+    "homeDelivery": true,
+    "storeDelivery": true,
+    "availability": true,
+    "deliveryNearestDate": "2020-07-19T08:00:00+03:00",
+    "pickupNearestDate": "2020-07-20T15:59:00+03:00"
+  },
+  "weight": {
+    "value": 30,
+    "description": "Вес, кг"
+  },
+  "prices": [{
+    "price": 425,
+    "uom": "шт.",
+    "currency": "₽",
+    "main": true
+  }, {
+    "price": 14.17,
+    "uom": "кг",
+    "currency": "₽",
+    "main": false
+  }],
+  "characteristics": [{
+    "id": "10840",
+    "value": ["Гипс"],
+    "description": "Основной материал"
+  }, {
+    "id": "10844",
+    "value": ["Россия"],
+    "description": "Страна производства"
+  }, {
+    "id": "13696",
+    "value": ["Вручную"],
+    "description": "Тип применения"
+  }, {
+    "id": "13826",
+    "value": ["Внутренний"],
+    "description": "Место использования"
+  }, {
+    "id": "16863",
+    "value": ["Кирпич", "Пазогребневая плита", "Газобетонный блок"],
+    "description": "Материал поверхности применения"
+  }, {
+    "id": "16869",
+    "value": ["168.0"],
+    "description": "Время полного высыхания (ч)"
+  }, {
+    "id": "20018",
+    "value": ["5.0"],
+    "description": "Минимальная температура применения (°C)"
+  }, {
+    "id": "20019",
+    "value": ["30.0"],
+    "description": "Максимальная температура применения (°C)"
+  }, {
+    "id": "20021",
+    "value": ["5.0"],
+    "description": "Минимальная толщина слоя (мм)"
+  }, {
+    "id": "20022",
+    "value": ["50.0"],
+    "description": "Максимальная толщина слоя (мм)"
+  }, {
+    "id": "22520",
+    "value": ["0,3"],
+    "description": "Адгезия (МПа)"
+  }, {
+    "id": "24908",
+    "value": ["1.2"],
+    "description": "Размер фракции (мм)"
+  }, {
+    "id": "24991",
+    "value": ["0.56"],
+    "description": "Количество воды (л/кг)"
+  }, {
+    "id": "25098",
+    "value": ["8.5"],
+    "description": "Расход кг/м² при толщине слоя 10 мм"
+  }, {
+    "id": "25158",
+    "value": ["2.5"],
+    "description": "Прочность на сжатие (МПа)"
+  }, {
+    "id": "00124",
+    "value": ["30.0"],
+    "description": "Вес нетто (кг)"
+  }, {
+    "id": "05339",
+    "value": ["0.5"],
+    "description": "Жизнеспособность раствора (ч)"
+  }, {
+    "id": "05338",
+    "value": ["7.0"],
+    "description": "Время до начала эксплуатации (дней)"
+  }, {
+    "id": "05885",
+    "value": ["Серый"],
+    "description": "Цвет"
+  }, {
+    "id": "brand",
+    "value": ["KNAUF"],
+    "description": "Марка"
+  }],
+  "brand": "KNAUF",
+  "categories": [{
+    "familyNames": "Штукатурки",
+    "familyIds": "shtukaturki-201709_Opus_Family",
+    "main": true
+  }, {
+    "familyNames": "Сухие штукатурки",
+    "familyIds": "030e0670-0a00-11ea-b2b5-f7a4d0b1ac93_Opus_Family",
+    "main": false
+  }, {
+    "familyNames": "Выравнивание стен сухими смесями",
+    "familyIds": "08fc2630-6e90-11ea-aded-ff77be911286_Opus_Family",
+    "main": false
+  }, {
+    "familyNames": "Выравнивание стен смесями",
+    "familyIds": "11ad7db0-6e90-11ea-aded-ff77be911286_Opus_Family",
+    "main": false
+  }, {
+    "familyNames": "Штукатурки для внутренней отделки",
+    "familyIds": "1d0c9b10-09fe-11ea-b2b5-f7a4d0b1ac93_Opus_Family",
+    "main": false
+  }, {
+    "familyNames": "Всё для ремонта",
+    "familyIds": "508aeee0-67fd-11e9-8695-d5503176ea61_Opus_Family",
+    "main": false
+  }],
+  "url": "https://leroymerlin.ru/product/shtukaturka-gipsovaya-knauf-rotband-30-kg-10073940",
+  "path": "shtukaturka-gipsovaya-knauf-rotband-30-kg-10073940",
+  "complements": [{
+    "articul": 923550,
+    "prices": [{
+      "price": 292,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }, {
+      "price": 29.2,
+      "uom": "л",
+      "currency": "₽",
+      "main": false
+    }],
+    "displayedName": "Грунт для отделки строительными смесями, для сухих помещений, 10 л",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/923550.jpg",
+    "rating": 3.7
+  }, {
+    "articul": 11816937,
+    "prices": [{
+      "price": 8.5,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }],
+    "displayedName": "Перчатки хлопчатобумажные с ПВХ",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/11816937.jpg",
+    "rating": 4.3
+  }, {
+    "articul": 12756884,
+    "prices": [{
+      "price": 723,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }, {
+      "price": 72.3,
+      "uom": "л",
+      "currency": "₽",
+      "main": false
+    }],
+    "displayedName": "Грунт Knauf Тифенгрунд 10 л",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/12756884.jpg",
+    "rating": 4.8
+  }, {
+    "articul": 13068784,
+    "prices": [{
+      "price": 265,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }],
+    "displayedName": "Правило алюминиевое Трапеция Сибртех 2 м, 2 ребра жесткости",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/13068784.jpg",
+    "rating": 3.9
+  }, {
+    "articul": 13105514,
+    "prices": [{
+      "price": 150,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }],
+    "displayedName": "Насадка электромиксера Сибртех 400х60 мм, оцинкованная сталь",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/13105514.jpg",
+    "rating": 4.7
+  }, {
+    "articul": 13175272,
+    "prices": [{
+      "price": 638,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }, {
+      "price": 63.8,
+      "uom": "м²",
+      "currency": "₽",
+      "main": false
+    }],
+    "displayedName": "Сетка металлическая оцинкованная Штрек 10х0.7х0.3 мм, 1x10 м",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/13175272.jpg",
+    "rating": 2
+  }, {
+    "articul": 13323335,
+    "prices": [{
+      "price": 1553,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }],
+    "displayedName": "Правило алюминиевое с уровнем Matrix 2.5 м, 2 ручки",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/13323335.jpg",
+    "rating": 3.2
+  }, {
+    "articul": 13697230,
+    "prices": [{
+      "price": 3633,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }],
+    "displayedName": "Уровень Kapro Genesis 2000 мм с двумя глазками",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/13697230.jpg",
+    "rating": 5
+  }, {
+    "articul": 14132012,
+    "prices": [{
+      "price": 88,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }],
+    "displayedName": "Шпатель фасадный 300 мм",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/14132012.jpg",
+    "rating": 4.2
+  }, {
+    "articul": 14609301,
+    "prices": [{
+      "price": 63,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }],
+    "displayedName": "Мешки для мусора 55x95 см, 10 шт.",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/14609301.jpg",
+    "rating": 4
+  }],
+  "substitutes": [{
+    "articul": 11313264,
+    "prices": [{
+      "price": 346,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }, {
+      "price": 11.53,
+      "uom": "кг",
+      "currency": "₽",
+      "main": false
+    }],
+    "displayedName": "Штукатурка гипсовая Волма Слой 30 кг",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/11313264.jpg",
+    "rating": 4.2
+  }, {
+    "articul": 11863717,
+    "prices": [{
+      "price": 311,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }, {
+      "price": 10.37,
+      "uom": "кг",
+      "currency": "₽",
+      "main": false
+    }],
+    "displayedName": "Штукатурка гипсовая Старатели  30 кг",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/11863717.jpg",
+    "rating": 4
+  }, {
+    "articul": 12420862,
+    "prices": [{
+      "price": 223,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }, {
+      "price": 22.3,
+      "uom": "кг",
+      "currency": "₽",
+      "main": false
+    }],
+    "displayedName": "Штукатурка гипсовая Knauf Ротбанд 10 кг",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/12420862.jpg",
+    "rating": 4.4
+  }, {
+    "articul": 12639223,
+    "prices": [{
+      "price": 318,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }, {
+      "price": 10.6,
+      "uom": "кг",
+      "currency": "₽",
+      "main": false
+    }],
+    "displayedName": "Штукатурка гипсовая Unis Теплон 30 кг",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/12639223.jpg",
+    "rating": 4.2
+  }, {
+    "articul": 13857185,
+    "prices": [{
+      "price": 288,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }, {
+      "price": 9.6,
+      "uom": "кг",
+      "currency": "₽",
+      "main": false
+    }],
+    "displayedName": "Штукатурка гипсовая Axton  30 кг",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/13857185.jpg",
+    "rating": 4.1
+  }, {
+    "articul": 15600295,
+    "prices": [{
+      "price": 294,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }, {
+      "price": 9.8,
+      "uom": "кг",
+      "currency": "₽",
+      "main": false
+    }],
+    "displayedName": "Штукатурка гипсовая Bergauf Easy Band 30 кг",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/15600295.jpg",
+    "rating": 4.2
+  }, {
+    "articul": 17761498,
+    "prices": [{
+      "price": 398,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }, {
+      "price": 13.27,
+      "uom": "кг",
+      "currency": "₽",
+      "main": false
+    }],
+    "displayedName": "Штукатурка гипсовая Weber Vetonit Easy gips 30 кг",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/17761498.jpg",
+    "rating": 4.2
+  }, {
+    "articul": 18385375,
+    "prices": [{
+      "price": 335,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }, {
+      "price": 11.17,
+      "uom": "кг",
+      "currency": "₽",
+      "main": false
+    }],
+    "displayedName": "Штукатурка гипсовая Knauf Айсберг 30 кг",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/18385375.jpg",
+    "rating": 3.8
+  }, {
+    "articul": 18463919,
+    "prices": [{
+      "price": 323,
+      "uom": "шт.",
+      "currency": "₽",
+      "main": true
+    }, {
+      "price": 12.92,
+      "uom": "кг",
+      "currency": "₽",
+      "main": false
+    }],
+    "displayedName": "Штукатурка гипсовая Волма Слой ультра 25 кг",
+    "mediaMainPhoto": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/18463919.jpg",
+    "rating": 4.4
+  }],
+  "pickupStoresCount": 23,
+  "deliveryStock": 1988,
+  "pickupStock": 1988,
+  "maxStock": 1988,
+  "stores": [{
+    "storeId": 2,
+    "stock": 1129,
+    "name": "Леруа Мерлен Мытищи"
+  }, {
+    "storeId": 3,
+    "stock": 1768,
+    "name": "Леруа Мерлен Красногорск"
+  }, {
+    "storeId": 4,
+    "stock": 1123,
+    "name": "Леруа Мерлен Алтуфьево"
+  }, {
+    "storeId": 5,
+    "stock": 608,
+    "name": "Леруа Мерлен Химки"
+  }, {
+    "storeId": 6,
+    "stock": 280,
+    "name": "Леруа Мерлен Сокольники"
+  }, {
+    "storeId": 20,
+    "stock": 866,
+    "name": "Леруа Мерлен Лефортово"
+  }, {
+    "storeId": 22,
+    "stock": 1046,
+    "name": "Леруа Мерлен Климовск"
+  }, {
+    "storeId": 26,
+    "stock": 386,
+    "name": "Леруа Мерлен Рязанский проспект"
+  }, {
+    "storeId": 32,
+    "stock": 1104,
+    "name": "Леруа Мерлен Новая Рига"
+  }, {
+    "storeId": 35,
+    "stock": 1519,
+    "name": "Леруа Мерлен Зеленоград"
+  }],
+  "rating": 4.5
+}

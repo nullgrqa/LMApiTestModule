@@ -1,0 +1,69 @@
+{
+  "ecom": {
+    "pickupGroups": [{
+      "deliveryType": "PICKUP",
+      "available": true,
+      "products": [{
+        "articul": 18218454,
+        "quantity": 1,
+        "stock": 74,
+        "prices": [{
+          "price": 8794,
+          "uom": "шт.",
+          "currency": "₽",
+          "main": true
+        }],
+        "weight": {
+          "value": 3.7,
+          "description": "Вес, кг"
+        },
+        "displayedName": "Дрель-шуруповерт аккумуляторная DeWalt DCD771S2, 18 В Li-ion 2х1.5 Ач",
+        "mediaMainPhoto": {
+          "url_small": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/18218454.jpg",
+          "url_full": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_800,h_800,c_pad,b_white/LMCode/18218454.jpg"
+        },
+        "totalProductWeight": 4,
+        "totalProductPrice": 8794
+      }],
+      "totalPrice": 8794,
+      "totalWeight": 3.7,
+      "reason": null,
+      "notification": null
+    }],
+    "deliveryGroups": [{
+      "deliveryType": "DELIVERY",
+      "available": true,
+      "products": [{
+        "articul": 18218454,
+        "quantity": 1,
+        "stock": 74,
+        "prices": [{
+          "price": 8794,
+          "uom": "шт.",
+          "currency": "₽",
+          "main": true
+        }],
+        "weight": {
+          "value": 3.7,
+          "description": "Вес, кг"
+        },
+        "displayedName": "Дрель-шуруповерт аккумуляторная DeWalt DCD771S2, 18 В Li-ion 2х1.5 Ач",
+        "mediaMainPhoto": {
+          "url_small": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_128,h_128,c_pad,b_white/LMCode/18218454.jpg",
+          "url_full": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_800,h_800,c_pad,b_white/LMCode/18218454.jpg"
+        },
+        "totalProductWeight": 4,
+        "totalProductPrice": 8794
+      }],
+      "totalPrice": 8794,
+      "totalWeight": 3.7,
+      "reason": null,
+      "notification": null
+    }]
+  },
+  "marketPlace": null,
+  "unavailableProducts": null,
+  "skuCount": 1,
+  "warnings": null,
+  "errors": null
+}

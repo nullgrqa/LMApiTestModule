@@ -5,12 +5,14 @@ public class ApiManager {
     private ApiLoginHelper apiLoginHelper;
     private ApiPdpHelper apiPdpHelper;
     private ApiBasketHelper apiBasketHelper;
+    private ApiGroupHelper apiGroupHelper;
 
     public void dealWithApi() {
         apiRegHelper = new ApiRegHelper();
         apiLoginHelper = new ApiLoginHelper();
         apiPdpHelper = new ApiPdpHelper();
         apiBasketHelper = new ApiBasketHelper();
+        apiGroupHelper = new ApiGroupHelper();
     }
 
     public ApiRegHelper getApiRegHelper() {
@@ -23,5 +25,8 @@ public class ApiManager {
         return apiPdpHelper;
     }
     public ApiBasketHelper getApiBasketHelper() { return apiBasketHelper; }
+    public ApiGroupHelper getApiGroupHelper() {
+        return apiGroupHelper;
+    }
 
 }
