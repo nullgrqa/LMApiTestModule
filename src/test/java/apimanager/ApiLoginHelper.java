@@ -17,6 +17,8 @@ public class ApiLoginHelper {
     String APIKEY = "NLdu-FEUbU-CCrd-otTWYJGhDfZZKYHAxVd-QksZEMMtCUkUKk";
     String CONTENTTYPE = "application/json";
     String BASEURI = "https://api.leroymerlin.ru/mobile";
+    UserLogin userLoginResponse;
+    Response response;
 
     public Response getBaseResponseForAuth(String authorization) {
         RestAssured.baseURI = BASEURI;
@@ -30,7 +32,7 @@ public class ApiLoginHelper {
 
         httpRequest.body(requestParams.toJSONString());
 
-        Response response = httpRequest.request(Method.POST,"/user/auth");
+         response = httpRequest.request(Method.POST,"/user/auth");
 
         String responseBody = response.getBody().asString();
         System.out.println("responseBody : " + responseBody);
@@ -40,7 +42,7 @@ public class ApiLoginHelper {
 
     public UserLogin getUserLogin(String authorization) {
 
-        UserLogin userLoginResponse = getBaseResponseForAuth(authorization).then().extract().body().as(UserLogin.class);
+         userLoginResponse = getBaseResponseForAuth(authorization).then().extract().body().as(UserLogin.class);
 
 //        String responseBody = response.getBody().asString();
 //        JsonPath jsonPath = response.jsonPath();
@@ -52,7 +54,8 @@ public class ApiLoginHelper {
     }
 
     public User getUser(String authorization) {
-        UserLogin userLoginFromApi = getBaseResponseForAuth(authorization).then().extract().body().as(UserLogin.class);
+        //UserLogin userLoginFromApi = getBaseResponseForAuth(authorization).then().extract().body().as(UserLogin.class);
+        UserLogin userLoginFromApi =  userLoginResponse;
 
                 User userFromApi = new User()
                 .withCustomerNumber(userLoginFromApi.getUser().getCustomerNumber())
@@ -66,12 +69,14 @@ public class ApiLoginHelper {
 
     public int getStatusCodeForAuth(String authorization) {
 
-        return getBaseResponseForAuth(authorization).getStatusCode();
+        //return getBaseResponseForAuth(authorization).getStatusCode();
+        return response.getStatusCode();
     }
 
     public long getTimeResponseForAuth (String authorization) {
 
-        return getBaseResponseForAuth(authorization).getTime();
+        //return getBaseResponseForAuth(authorization).getTime();
+        return response.getTime();
     }
 
 

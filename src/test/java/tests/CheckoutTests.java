@@ -12,8 +12,8 @@ public class CheckoutTests extends TestBase {
 //        String nameFromResp = am.getApiGroupHelper()
 //                .getNameOfItem("src/test/mockFiles/groupOneItemMore1000r.json");
 
-//        String priceOfItemFromResp = am.getApiGroupHelper()
-//                .getPriceOfItem("src/test/mockFiles/groupOneItemMore1000r.json");
+        String priceOfItemFromResp = am.getApiGroupHelper()
+                .getPriceOfItem("src/test/mockFiles/groupOneItemMore1000r.json");
 
 //        String totalWeightFromResp = am.getApiGroupHelper()
 //                .getTotalWeight("src/test/mockFiles/groupOneItemMore1000r.json");
@@ -23,9 +23,9 @@ public class CheckoutTests extends TestBase {
 //                .getTotalPrice("src/test/mockFiles/groupOneItemMore1000r.json");
 
 
-        String totalWeightFromResp = am.getApiGroupHelper()
-                .getTogetherPriceOfItem("src/test/mockFiles/groupOneItemWithTwoQntMore1000r.json",
-                        "deliveryGroups");
+//        String totalWeightFromResp = am.getApiGroupHelper()
+//                .getTogetherPriceOfItem("src/test/mockFiles/groupOneItemWithTwoQntMore1000r.json",
+//                        "deliveryGroups");
 
 
     }

@@ -9,6 +9,7 @@ import org.json.simple.parser.ParseException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.Locale;
 
 public class ApiGroupHelper {
@@ -65,10 +66,18 @@ public class ApiGroupHelper {
 //        String priceOfProduct = (String) price.get("price");
 //        System.out.println("priceOfProduct from Response: " + priceOfProduct);
 
-        int priceMain = Integer.parseInt(price.get("price").toString());
-//        System.out.println("priceMain : " + priceMain );
-        float priceMainFloat = (float) priceMain;
-        String priceMainString = String.format(Locale.FRANCE,"%.02f", priceMainFloat);
+        float priceMain = Float.parseFloat(price.get("price").toString());
+
+        System.out.println("priceMain : " + priceMain );
+        //float priceMainFloat = (float) priceMain;
+        String priceMainString = String.format(Locale.FRANCE,"%.02f", priceMain);
+        String[] priceMainStringSub = priceMainString.split(",",2);
+        String priceF = priceMainStringSub[1].trim();
+        if (priceF.equals("00")) {
+            priceMainString = priceMainString.replaceAll(",00", "");
+        }
+        System.out.println("priceF : " + priceF);
+
         System.out.println("price of Item from resp: " + priceMainString);
 
 //        String priceCurrency = price.get("currency").toString();

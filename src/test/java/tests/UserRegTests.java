@@ -10,6 +10,7 @@ import io.restassured.response.Response;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.testng.Assert.assertEquals;
@@ -119,6 +120,12 @@ public class UserRegTests extends TestBase {
     }
 
 */
+
+@Test
+    public void getDate() {
+    System.out.println(LocalDate.now());
+
+}
 }
 
 

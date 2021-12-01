@@ -38,7 +38,7 @@
         "quantity": 1,
         "stock": 74,
         "prices": [{
-          "price": 8794,
+          "price": 8794.23,
           "uom": "шт.",
           "currency": "₽",
           "main": true
@@ -53,9 +53,9 @@
           "url_full": "https://res.cloudinary.com/lmru/image/upload/f_auto,q_auto,w_800,h_800,c_pad,b_white/LMCode/18218454.jpg"
         },
         "totalProductWeight": 4,
-        "totalProductPrice": 8794
+        "totalProductPrice": 8794.23
       }],
-      "totalPrice": 8794,
+      "totalPrice": 8794.23,
       "totalWeight": 3.7,
       "reason": null,
       "notification": null
